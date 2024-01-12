@@ -14,6 +14,7 @@ export const axiosBaseQuery =
       params?: AxiosRequestConfig["params"];
       meta?: IMeta;
       headers?: AxiosRequestConfig["headers"];
+      contentType?: string;
     },
     unknown,
     unknown
