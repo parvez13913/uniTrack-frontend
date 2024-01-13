@@ -3,5 +3,13 @@ export const setToLocalStroage = (key: string, token: string) => {
     return "";
   }
 
-  localStorage.setItem(key, token);
+  return localStorage.setItem(key, token);
+};
+
+export const getFromLocalStroage = (key: string) => {
+  if (!key || typeof window === "undefined") {
+    return "";
+  }
+
+  return localStorage.getItem(key);
 };
