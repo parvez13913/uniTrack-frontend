@@ -5,6 +5,7 @@ import Sidebar from "../components/ui/Sidebar";
 import { isLoggedIn } from "@/services/auth.service";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loading from "../loading";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const userLoggedIn = isLoggedIn();
@@ -20,7 +21,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }, [router, userLoggedIn, isLoading]);
 
   if (!isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
