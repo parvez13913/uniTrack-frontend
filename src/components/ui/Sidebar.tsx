@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { Layout, Menu } from "antd";
-import { Sidebaritems } from "@/constants/sidebaritems";
-import { USER_ROLE } from "@/constants/role";
 import { getUserInfo } from "@/services/auth.service";
+import { Sidebaritems } from "@/constants/sidebaritems";
 
 const { Sider } = Layout;
 
@@ -33,10 +32,11 @@ const Sidebar = () => {
           fontSize: "2rem",
           textAlign: "center",
           fontWeight: "bold",
-          marginBottom: "1rem",
+          marginBottom: ".5rem",
+          padding: "10px 0px",
         }}
       >
-        UMS
+        UniTrack
       </div>
       <Menu
         theme="dark"

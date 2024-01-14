@@ -1,8 +1,8 @@
 import { Avatar, Button, Dropdown, Layout, MenuProps, Row, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { removeUserInfo } from "@/services/auth.service";
-import { authKey } from "@/constants/storageKey";
 import { useRouter } from "next/navigation";
+import { authKey } from "@/constants/storageKey";
+import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 
 const { Header: AntHeader } = Layout;
 
@@ -22,6 +22,8 @@ const Header = () => {
       ),
     },
   ];
+  const { role } = getUserInfo() as any;
+
   return (
     <AntHeader>
       <Row
@@ -31,6 +33,14 @@ const Header = () => {
           height: "100%",
         }}
       >
+        <p
+          style={{
+            margin: "0px 5px",
+            color: "#ffff",
+          }}
+        >
+          {role}
+        </p>
         <Dropdown menu={{ items }}>
           <a>
             <Space wrap size={16}>

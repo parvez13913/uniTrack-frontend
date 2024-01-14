@@ -1,6 +1,5 @@
-import { Button, Row } from "antd";
+import { Row } from "antd";
 import notFoundImage from "../assets/notFound.svg";
-import Link from "next/link";
 
 const NotFoundPage = () => {
   return (
