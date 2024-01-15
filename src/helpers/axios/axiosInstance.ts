@@ -1,7 +1,7 @@
 import { authKey } from "@/constants/storageKey";
 import { ResponseSuccessType } from "@/types";
 import { getFromLocalStroage } from "@/utils/local-storage";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const instance = axios.create();
 

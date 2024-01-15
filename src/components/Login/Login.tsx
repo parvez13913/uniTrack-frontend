@@ -6,9 +6,9 @@ import { Button, Col, Row } from "antd";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler } from "react-hook-form";
-import loginImage from "../../assets/login.svg";
-import Form from "../Forms/Form";
-import FormInput from "../Forms/FormInput";
+import loginImage from "@/assets/login.svg";
+import Form from "@/components/Forms/Form";
+import FormInput from "@/components/Forms/FormInput";
 
 type FormValues = {
   id: string;
@@ -27,7 +27,7 @@ const LoginPage = () => {
       }
       storeUserInfo({ accessToken: response?.accessToken });
     } catch (error: any) {
-      console.error(error.message);
+      console.error(error);
     }
   };
 
