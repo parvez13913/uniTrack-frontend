@@ -35,9 +35,10 @@ const SideBar = () => {
           textAlign: "center",
           fontWeight: "bold",
           marginBottom: "1rem",
+          padding: "10px 0",
         }}
       >
-        PH-University
+        UniTrack
       </div>
       <Menu
         theme="dark"
