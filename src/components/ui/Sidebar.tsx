@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { Layout, Menu } from "antd";
-import { getUserInfo } from "@/services/auth.service";
-import { Sidebaritems } from "@/constants/sidebaritems";
+
+import { sidebarItems } from "@/constants/sidebarItems";
+import { USER_ROLE } from "@/constants/role";
 
 const { Sider } = Layout;
 
-const Sidebar = () => {
+const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { role } = getUserInfo() as any;
+
+  const role = USER_ROLE.ADMIN;
 
   return (
     <Sider
@@ -18,9 +20,9 @@ const Sidebar = () => {
       onCollapse={(value) => setCollapsed(value)}
       width={280}
       style={{
-        overflow: "aut",
+        overflow: "auto",
         height: "100vh",
-        position: "static",
+        position: "sticky",
         left: 0,
         top: 0,
         bottom: 0,
@@ -32,20 +34,19 @@ const Sidebar = () => {
           fontSize: "2rem",
           textAlign: "center",
           fontWeight: "bold",
-          marginBottom: ".5rem",
-          padding: "10px 0px",
+          marginBottom: "1rem",
         }}
       >
-        UniTrack
+        PH-University
       </div>
       <Menu
         theme="dark"
         defaultSelectedKeys={["1"]}
         mode="inline"
-        items={Sidebaritems(role)}
+        items={sidebarItems(role)}
       />
     </Sider>
   );
 };
 
-export default Sidebar;
+export default SideBar;

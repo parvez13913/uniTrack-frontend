@@ -1,5 +1,5 @@
 import { Row } from "antd";
-import notFoundImage from "../assets/notFound.svg";
+import notFoundImage from "@/assets/notFound.svg";
 
 const NotFoundPage = () => {
   return (

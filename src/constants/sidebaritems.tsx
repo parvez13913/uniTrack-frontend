@@ -10,9 +10,7 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
-
-export const Sidebaritems = (role: string) => {
-  // Default sidebar item
+export const sidebarItems = (role: string) => {
   const defaultSidebarItems: MenuProps["items"] = [
     {
       label: "Profile",
@@ -31,7 +29,6 @@ export const Sidebaritems = (role: string) => {
     },
   ];
 
-  // Common Admin sidebar item
   const commonAdminSidebarItems: MenuProps["items"] = [
     {
       label: <Link href={`/${role}/manage-student`}>Manage Students</Link>,
@@ -45,12 +42,11 @@ export const Sidebaritems = (role: string) => {
     },
   ];
 
-  // Admin sidebar item
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     ...commonAdminSidebarItems,
     {
-      label: "Manage Academic",
+      label: "Manage academic",
       key: "manage-academic",
       icon: <TableOutlined />,
       children: [
@@ -92,19 +88,19 @@ export const Sidebaritems = (role: string) => {
         {
           label: (
             <Link href={`/${role}/semester-registration`}>
-              Semester Registration
+              Semester registration
             </Link>
           ),
           key: `/${role}/semester-registration`,
         },
         {
-          label: <Link href={`/${role}/offered-course`}>Offered Course</Link>,
+          label: <Link href={`/${role}/offered-course`}>Offered courses</Link>,
           key: `/${role}/offered-course`,
         },
         {
           label: (
             <Link href={`/${role}/offered-course-section`}>
-              Offered Course Section
+              Course sections
             </Link>
           ),
           key: `/${role}/offered-course-section`,
@@ -112,7 +108,7 @@ export const Sidebaritems = (role: string) => {
         {
           label: (
             <Link href={`/${role}/offered-course-schedule`}>
-              Offered Course Schedule
+              Course schedules
             </Link>
           ),
           key: `/${role}/offered-course-schedule`,
@@ -121,7 +117,6 @@ export const Sidebaritems = (role: string) => {
     },
   ];
 
-  // Super Admin sidebar item
   const superAdminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     ...commonAdminSidebarItems,
@@ -136,9 +131,15 @@ export const Sidebaritems = (role: string) => {
       key: `/${role}/user`,
     },
     {
-      label: <Link href={`/${role}/user`}>Manage User</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/user`,
+      label: "Manage permission",
+      key: "manage-permission",
+      icon: <AppstoreOutlined />,
+      children: [
+        {
+          label: <Link href={`/${role}/permission`}>View permissions</Link>,
+          key: `/${role}/permission`,
+        },
+      ],
     },
     {
       label: "Management",
@@ -147,14 +148,12 @@ export const Sidebaritems = (role: string) => {
       children: [
         {
           label: <Link href={`/${role}/department`}>Department</Link>,
-          icon: <TableOutlined />,
           key: `/${role}/department`,
         },
       ],
     },
   ];
 
-  // Faculty sidebar item
   const facultySidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
@@ -164,7 +163,6 @@ export const Sidebaritems = (role: string) => {
     },
   ];
 
-  // Student sidebar item
   const studentSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
@@ -188,7 +186,7 @@ export const Sidebaritems = (role: string) => {
       key: `/${role}/payment`,
     },
     {
-      label: <Link href={`/${role}/academic-report`}>Academic Report</Link>,
+      label: <Link href={`/${role}/academic-report`}>Academic report</Link>,
       icon: <FileTextOutlined />,
       key: `/${role}/academic-report`,
     },

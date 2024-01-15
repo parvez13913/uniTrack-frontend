@@ -14,9 +14,11 @@ type FormProps = {
 
 const Form = ({ children, submitHandler, defaultValues }: FormProps) => {
   const formConfig: FormConfig = {};
+
   if (!!defaultValues) formConfig["defaultValues"] = defaultValues;
 
   const methods = useForm<FormProps>(formConfig);
+
   const { handleSubmit, reset } = methods;
 
   const onSubmit = (data: any) => {
