@@ -34,8 +34,8 @@ const SideBar = () => {
           fontSize: "2rem",
           textAlign: "center",
           fontWeight: "bold",
-          marginBottom: "1rem",
-          padding: "10px 0",
+          marginBottom: ".5rem",
+          padding: "10px 0px",
         }}
       >
         UniTrack
