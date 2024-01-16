@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Layout, Menu } from "antd";
-
 import { sidebarItems } from "@/constants/sidebarItems";
 import { getUserInfo } from "@/service/auth.service";
 
