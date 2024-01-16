@@ -1,7 +1,15 @@
+"use client";
+
+import { Button } from "antd";
+import Link from "next/link";
+
 const ManageFacultyPage = () => {
   return (
     <div>
-      <h1>This is manage faculty page</h1>
+      <h1>Faculty List</h1>
+      <Link href="/super_admin/manage-student/create">
+        <Button type="primary">Create Faculty</Button>
+      </Link>
     </div>
   );
 };
