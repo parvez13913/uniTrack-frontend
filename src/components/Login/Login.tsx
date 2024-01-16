@@ -21,8 +21,6 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
       const response = await userLogin({ ...data }).unwrap();
-      console.log(response?.accessToken);
-
       if (response?.accessToken) {
         router.push("/profile");
       }
