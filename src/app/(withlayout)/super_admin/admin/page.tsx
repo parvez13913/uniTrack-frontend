@@ -1,13 +1,26 @@
+"use client";
+import ActionBar from "@/components/ui/ActionBar";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { Button } from "antd";
 import Link from "next/link";
 
 const ManageAdminPage = () => {
   return (
     <div>
-      <h1>Admin List</h1>
-      <Link href="/super_admin/manage-student/create">
-        <Button type="primary">Create</Button>
-      </Link>
+      <UMBreadCrumb
+        items={[
+          {
+            label: "super_admin",
+            link: "/super_admin",
+          },
+        ]}
+      />
+
+      <ActionBar title="Admin List">
+        <Link href="/super_admin/manage-student/create">
+          <Button type="primary">Create</Button>
+        </Link>
+      </ActionBar>
     </div>
   );
 };
