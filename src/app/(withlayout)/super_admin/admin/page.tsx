@@ -17,7 +17,7 @@ const ManageAdminPage = () => {
       />
 
       <ActionBar title="Admin List">
-        <Link href="/super_admin/manage-student/create">
+        <Link href="/super_admin/admin/create">
           <Button type="primary">Create</Button>
         </Link>
       </ActionBar>
