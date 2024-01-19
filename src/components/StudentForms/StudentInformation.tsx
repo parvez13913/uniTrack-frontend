@@ -6,7 +6,9 @@ import {
   academicDepartmentOptions,
   academicFacultyOptions,
   academicSemesterOptions,
+  genderOptions,
 } from "@/constants/global";
+import UploadImage from "../ui/UploadImage";
 
 const StudentInformation = () => {
   return (
@@ -16,6 +18,7 @@ const StudentInformation = () => {
         borderRadius: "5px",
         padding: "15px",
         marginBottom: "10px",
+        marginTop: "10px",
       }}
     >
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -119,6 +122,30 @@ const StudentInformation = () => {
             options={academicSemesterOptions}
             placeholder="Select"
           />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormSelectField
+            name="student.gender"
+            size="large"
+            label="Gender"
+            options={genderOptions}
+            placeholder="Select"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <UploadImage />
         </Col>
       </Row>
     </div>
