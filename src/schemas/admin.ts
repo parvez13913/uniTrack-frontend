@@ -7,7 +7,7 @@ export const adminSchema = yup.object().shape({
       .object()
       .shape({
         firstName: yup.string().required("First name is required"),
-        middleName: yup.string().required("Middle name is required"),
+        middleName: yup.string().optional(),
         lastName: yup.string().required("Last name is required"),
       })
       .required(),
