@@ -25,10 +25,21 @@ const CreateStudentPage = () => {
     },
   ];
 
+  const handelStudentInfoSubmit = (data: any) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h1>Create Student</h1>
-      <StepperForm steps={steps} />
+      <StepperForm
+        submitHandler={(value) => handelStudentInfoSubmit(value)}
+        steps={steps}
+      />
     </div>
   );
 };
