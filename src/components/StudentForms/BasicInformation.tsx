@@ -16,6 +16,9 @@ const BasicInformation = () => {
         marginTop: "10px",
       }}
     >
+      <p style={{ fontSize: "18px", fontWeight: "700", margin: "5px 0px" }}>
+        Basic information
+      </p>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col
           className="gutter-row"
