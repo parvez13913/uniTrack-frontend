@@ -14,7 +14,14 @@ const CreateDepartmentPage = () => {
   };
   const base = "super_admin";
   return (
-    <div style={{ marginLeft: "20px", marginTop: "10px" }}>
+    <div
+    // style={{
+    //   marginLeft: "20px",
+    //   marginRight: "20px",
+    //   marginTop: "10px",
+    //   padding: "20px",
+    // }}
+    >
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/${base}` },
