@@ -1,7 +1,7 @@
-import { IMeta } from "@/types";
-import type { BaseQueryFn } from "@reduxjs/toolkit/query";
-import type { AxiosRequestConfig, AxiosError } from "axios";
+import { BaseQueryFn } from "@reduxjs/toolkit/query";
 import { instance as axiosInstance } from "./axiosInstance";
+import { AxiosError, AxiosRequestConfig } from "axios";
+import { IMeta } from "@/types";
 
 export const axiosBaseQuery =
   (
@@ -26,16 +26,16 @@ export const axiosBaseQuery =
         data,
         params,
         headers: {
-          contentType: contentType || "application/json",
+          "Content-Type": contentType || "application/json",
         },
       });
-      return { data: result.data };
+      return result;
     } catch (axiosError) {
-      let err = axiosError as AxiosError;
+      let error = axiosError as AxiosError;
       return {
         error: {
-          status: err.response?.status,
-          data: err.response?.data || err.message,
+          status: error.response?.status,
+          data: error.response?.data || error.message,
         },
       };
     }

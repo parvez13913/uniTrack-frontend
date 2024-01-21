@@ -1,4 +1,5 @@
 "use client";
+
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
@@ -13,7 +14,7 @@ const CreateDepartmentPage = () => {
       await addDepartment(data);
       message.success("Department added successfully");
     } catch (error: any) {
-      message.error(error.message);
+      await message.error(error.message);
     }
   };
   const base = "super_admin";
