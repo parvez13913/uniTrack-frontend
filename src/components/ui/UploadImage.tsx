@@ -4,6 +4,7 @@ import { message, Upload } from "antd";
 import type { UploadProps } from "antd";
 import { RcFile } from "antd/es/upload";
 import Image from "next/image";
+import { useFormContext } from "react-hook-form";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -30,6 +31,7 @@ type ImageUploadProps = {
 const UploadImage = ({ name }: ImageUploadProps) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
+  const { setValue } = useFormContext();
 
   const handleChange: UploadProps["onChange"] = (info) => {
     if (info.file.status === "uploading") {
@@ -37,6 +39,7 @@ const UploadImage = ({ name }: ImageUploadProps) => {
       return;
     }
     if (info.file.status === "done") {
+      setValue(name, info.file.originFileObj);
       getBase64(info.file.originFileObj as RcFile, (url) => {
         setLoading(false);
         setImageUrl(url);

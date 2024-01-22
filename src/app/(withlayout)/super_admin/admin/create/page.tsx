@@ -1,5 +1,4 @@
 "use client";
-import Loading from "@/app/loading";
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormInput from "@/components/Forms/FormInput";
@@ -8,32 +7,43 @@ import FormTextArea from "@/components/Forms/FormTextArea";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UploadImage from "@/components/ui/UploadImage";
 import { bloodGroupOptions, genderOptions } from "@/constants/global";
+import { useAddAdminMutation } from "@/redux/api/adminApi";
 import { useDepartmentsQuery } from "@/redux/api/departmentApi";
 import { adminSchema } from "@/schemas/admin";
 import { IDepartments } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 
 const CreateAdminPage = () => {
+  // Management department option
   const { data, isLoading } = useDepartmentsQuery({ limit: 100, page: 1 });
+  const [addAdmin] = useAddAdminMutation();
 
   // @ts-ignore
   const departments: IDepartments[] = data?.departments;
-  if (!departments) {
-    return <Loading />;
-  }
-  const managementDepartmentOptions = departments?.map((department) => {
-    return {
-      label: department?.title,
-      value: department?.id,
-    };
-  });
+  const managementDepartmentOptions =
+    departments &&
+    departments?.map((department) => {
+      return {
+        label: department?.title,
+        value: department?.id,
+      };
+    });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (values: any) => {
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+    message.loading("Admin Creating...");
     try {
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+      await addAdmin(formData);
+      message.success("Admin added successfully");
+    } catch (error: any) {
+      await message.error(error.message);
     }
   };
 
