@@ -1,7 +1,10 @@
 "use client";
 import UMTable from "@/components/ui/UMTable";
-import { useDepartmentsQuery } from "@/redux/api/departmentApi";
-import { Button, Input } from "antd";
+import {
+  useDeleteDepartmentMutation,
+  useDepartmentsQuery,
+} from "@/redux/api/departmentApi";
+import { Button, Input, message } from "antd";
 import Link from "next/link";
 import {
   DeleteOutlined,
@@ -39,6 +42,17 @@ const ManageDepartmentPage = () => {
   const { data, isLoading } = useDepartmentsQuery({ ...query });
   const departments = data?.departments;
   const meta = data?.meta;
+  const [deleteDepartment] = useDeleteDepartmentMutation();
+
+  const deleteHandler = async (id: string) => {
+    message.loading("Department Deleting...");
+    try {
+      await deleteDepartment(id);
+      message.success("Department deleted successfully");
+    } catch (error: any) {
+      message.error(error.message);
+    }
+  };
 
   const columns = [
     {
@@ -64,12 +78,15 @@ const ManageDepartmentPage = () => {
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
               >
                 <EditOutlined />
               </Button>
             </Link>
-            <Button type="primary" danger onClick={() => console.log(data)}>
+            <Button
+              type="primary"
+              danger
+              onClick={() => deleteHandler(data?.id)}
+            >
               <DeleteOutlined />
             </Button>
           </>
