@@ -6,11 +6,11 @@ import Link from "next/link";
 import {
   DeleteOutlined,
   EditOutlined,
-  EyeOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import ActionBar from "@/components/ui/ActionBar";
+import dayjs from "dayjs";
 import { useDebounced } from "@/redux/hooks";
 
 const ManageDepartmentPage = () => {
@@ -48,6 +48,9 @@ const ManageDepartmentPage = () => {
     {
       title: "CreatedAt",
       dataIndex: "createdAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
       sorter: true,
     },
     {
@@ -55,18 +58,17 @@ const ManageDepartmentPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Button type="primary" onClick={() => console.log(data)}>
-              <EyeOutlined />
-            </Button>
-            <Button
-              type="primary"
-              style={{
-                margin: "0px 5px",
-              }}
-              onClick={() => console.log(data)}
-            >
-              <EditOutlined />
-            </Button>
+            <Link href={`/super_admin/department/edit/${data?.id}`}>
+              <Button
+                type="primary"
+                style={{
+                  margin: "0px 5px",
+                }}
+                onClick={() => console.log(data)}
+              >
+                <EditOutlined />
+              </Button>
+            </Link>
             <Button type="primary" danger onClick={() => console.log(data)}>
               <DeleteOutlined />
             </Button>
