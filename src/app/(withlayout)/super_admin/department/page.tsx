@@ -3,57 +3,70 @@ import UMTable from "@/components/ui/UMTable";
 import { useDepartmentsQuery } from "@/redux/api/departmentApi";
 import { Button } from "antd";
 import Link from "next/link";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
 const ManageDepartmentPage = () => {
-  const { data, isLoading } = useDepartmentsQuery(undefined);
+  const query: Record<string, any> = {};
 
-  console.log(data);
+  const [size, setSize] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
+  const [sortBy, setSortBy] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<string>("");
+
+  query["size"] = size;
+  query["page"] = page;
+  query["sortBy"] = sortBy;
+  query["sortOrder"] = sortOrder;
+  const { data, isLoading } = useDepartmentsQuery({ ...query });
+  const departments = data?.departments;
+  const meta = data?.meta;
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Title",
+      dataIndex: "title",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      sorter: (a: any, b: any) => a.age - b.age,
+      title: "CreatedAt",
+      dataIndex: "createdAt",
+      sorter: true,
     },
     {
       title: "Action",
       render: function (data: any) {
         return (
-          <Button type="primary" danger onClick={() => console.log(data)}>
-            X
-          </Button>
+          <>
+            <Button type="primary" onClick={() => console.log(data)}>
+              <EyeOutlined />
+            </Button>
+            <Button
+              type="primary"
+              style={{
+                margin: "0px 5px",
+              }}
+              onClick={() => console.log(data)}
+            >
+              <EditOutlined />
+            </Button>
+            <Button type="primary" danger onClick={() => console.log(data)}>
+              <DeleteOutlined />
+            </Button>
+          </>
         );
       },
     },
   ];
 
-  const tableData = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-    },
-  ];
-
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log("page", page);
-    console.log("pageSize", pageSize);
+    setPage(page);
+    setSize(pageSize);
   };
 
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
     const { order, field } = sorter;
-    console.log("order:", order, "field:", field);
+    setSortBy(field as string);
+    setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
   return (
@@ -63,11 +76,11 @@ const ManageDepartmentPage = () => {
         <Button type="primary">Create Department</Button>
       </Link>
       <UMTable
-        loading={false}
+        loading={isLoading}
         columns={columns}
-        dataSource={tableData}
-        pageSize={5}
-        totalPages={100}
+        dataSource={departments}
+        pageSize={size}
+        totalPages={meta?.total}
         showSizeChanger={true}
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
