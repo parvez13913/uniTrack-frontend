@@ -3,19 +3,19 @@
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMTable from "@/components/ui/UMTable";
+import { useDebounced } from "@/redux/hooks";
 import { Button, Input } from "antd";
+import Link from "next/link";
+import { useState } from "react";
+import dayjs from "dayjs";
 import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
-import { useState } from "react";
-import { useDebounced } from "@/redux/hooks";
-import dayjs from "dayjs";
-import { useAcademicFacultiesQuery } from "@/redux/api/academic/facultyApi";
+import { useAcademicDepartmentsQuery } from "@/redux/api/academic/departmentApi";
 
-const FacultyPage = () => {
+const DepartmentPage = () => {
   const query: Record<string, any> = {};
 
   const [size, setSize] = useState<number>(10);
@@ -38,8 +38,8 @@ const FacultyPage = () => {
     query["searchTerm"] = searchTerm;
   }
 
-  const { data, isLoading } = useAcademicFacultiesQuery({ ...query });
-  const academicFaculties = data?.academicFaculties;
+  const { data, isLoading } = useAcademicDepartmentsQuery({ ...query });
+  const academicDepartments = data?.academicDepartments;
   const meta = data?.meta;
 
   const columns = [
@@ -107,7 +107,7 @@ const FacultyPage = () => {
         ]}
       />
 
-      <ActionBar title="Academic Faculty List">
+      <ActionBar title="Academic Department List">
         <Input
           type="text"
           size="large"
@@ -120,8 +120,8 @@ const FacultyPage = () => {
           }}
         />
         <div>
-          <Link href="/admin/academic/faculty/create">
-            <Button type="primary">Create Faculty</Button>
+          <Link href="/admin/academic/department/create">
+            <Button type="primary">Create Department</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -137,7 +137,7 @@ const FacultyPage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={academicFaculties}
+        dataSource={academicDepartments}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -149,4 +149,4 @@ const FacultyPage = () => {
   );
 };
 
-export default FacultyPage;
+export default DepartmentPage;
