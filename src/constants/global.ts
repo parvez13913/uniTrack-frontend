@@ -99,3 +99,24 @@ export const academicSemesterOptions = [
     value: "summer24",
   },
 ];
+
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+export const monthOptions = months.map((month: string) => {
+  return {
+    label: month,
+    value: month,
+  };
+});
