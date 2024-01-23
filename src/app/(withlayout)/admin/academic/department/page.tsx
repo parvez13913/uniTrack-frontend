@@ -48,7 +48,14 @@ const DepartmentPage = () => {
       dataIndex: "title",
     },
     {
-      title: "Created at",
+      title: "Faculty",
+      dataIndex: "academicFaculty",
+      render: function (data: any) {
+        return <>{data?.title}</>;
+      },
+    },
+    {
+      title: "CreatedAt",
       dataIndex: "createdAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -57,11 +64,10 @@ const DepartmentPage = () => {
     },
     {
       title: "Action",
-      dataIndex: "id",
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/academic/faculty/edit/${data?.id}`}>
+            <Link href={`/admin/academic/department/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
