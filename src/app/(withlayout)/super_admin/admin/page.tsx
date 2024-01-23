@@ -39,7 +39,6 @@ const ManageAdminPage = () => {
   }
 
   const { data, isLoading } = useAdminsQuery({ ...query });
-  console.log(data);
 
   const admins = data?.admins;
   const meta = data?.meta;
@@ -138,8 +137,8 @@ const ManageAdminPage = () => {
           style={{
             width: "20%",
           }}
-          onChange={() => {
-            console.log();
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
           }}
         />
         <div>
