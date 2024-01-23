@@ -15,6 +15,7 @@ export const facultyApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.academicFaculty],
     }),
+
     // get Academic Faculties
     academicFaculties: build.query({
       query: (arg: Record<string, any>) => ({

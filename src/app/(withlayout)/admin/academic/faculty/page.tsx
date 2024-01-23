@@ -96,6 +96,7 @@ const FacultyPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
+  const base = "admin";
   return (
     <div>
       <UMBreadCrumb
