@@ -31,7 +31,29 @@ export const adminApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.admin],
     }),
+    // get single admin
+    admin: build.query({
+      query: (id) => ({
+        url: `${ADMIN_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.admin],
+    }),
+    // update admin
+    updateAdmin: build.mutation({
+      query: (data) => ({
+        url: `${ADMIN_URL}/${data?.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.admin],
+    }),
   }),
 });
 
-export const { useAddAdminMutation, useAdminsQuery } = adminApi;
+export const {
+  useAddAdminMutation,
+  useAdminsQuery,
+  useAdminQuery,
+  useUpdateAdminMutation,
+} = adminApi;

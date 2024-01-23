@@ -30,7 +30,7 @@ export const departmentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.department],
     }),
-    // get single data
+    // get single deparetment
     department: build.query({
       query: (id) => ({
         url: `${MANAGEMENT_DEPARTMENT_URL}/${id}`,
