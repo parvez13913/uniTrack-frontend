@@ -5,11 +5,11 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormYearPicker from "@/components/Forms/FormYearPicker";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { monthOptions } from "@/constants/global";
+import { useAddAcademicSemesterMutation } from "@/redux/api/academic/semesterApi";
 import { Button, Col, Row, message } from "antd";
 
 const CreateSemesterPage = () => {
-  const base = "admin";
-
+  const [addAcademicSemester] = useAddAcademicSemesterMutation();
   const semesterOptions = [
     {
       label: "Autumn",
@@ -25,24 +25,30 @@ const CreateSemesterPage = () => {
     },
   ];
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (data: any) => {
+    if (data?.title === "Autumn") data["code"] = "01";
+    else if (data?.title === "Summer") data["code"] = "02";
+    else if (data?.title === "Fall") data["code"] = "03";
+    data.year = parseInt(data.year);
     message.loading("Academic Semester Creating...");
     try {
-      console.log(values);
-
-      message.success("Academic Semester added successfully");
+      const response = await addAcademicSemester(data);
+      if (!!response) {
+        message.success("Academic Semester added successfully");
+      }
     } catch (error: any) {
       await message.error(error.message);
     }
   };
+
+  const base = "admin";
 
   return (
     <div>
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/${base}` },
-          { label: "academic", link: `/${base}/academic` },
-          { label: "semester", link: `/${base}/academic/semester` },
+          { label: "academicSemester", link: `/${base}/academic/semester` },
         ]}
       />
       <h1>Create Academic Semester</h1>
