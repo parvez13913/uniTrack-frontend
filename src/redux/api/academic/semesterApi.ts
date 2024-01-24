@@ -30,8 +30,19 @@ export const semesterApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.academicSemester],
     }),
+    // get single Academic Semester
+    academicSemester: build.query({
+      query: (id) => ({
+        url: `${ACADEMIC_SEMESTER_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.academicSemester],
+    }),
   }),
 });
 
-export const { useAddAcademicSemesterMutation, useAcademicSemestersQuery } =
-  semesterApi;
+export const {
+  useAddAcademicSemesterMutation,
+  useAcademicSemestersQuery,
+  useAcademicSemesterQuery,
+} = semesterApi;
