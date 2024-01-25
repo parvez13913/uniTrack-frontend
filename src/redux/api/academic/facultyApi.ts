@@ -31,6 +31,14 @@ export const facultyApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.academicFaculty],
     }),
+    // get single Academic Facultie
+    academicFacultie: build.query({
+      query: (id) => ({
+        url: `${ACADEMIC_FACULTY_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.academicFaculty],
+    }),
   }),
 });
 
