@@ -77,3 +77,22 @@ export interface IAcademicDepartment {
   updatedAt: string;
   __v: number;
 }
+
+export interface IFaculty {
+  id: string;
+  name: IName;
+  gender: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  dateOfBirth: string;
+  bloodGroup: string;
+  academicFaculty: string;
+  academicDepartment: string;
+  designation: string;
+  presentAddress: string;
+  permanentAddress: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
