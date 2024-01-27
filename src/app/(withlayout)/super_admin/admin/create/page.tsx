@@ -43,7 +43,7 @@ const CreateAdminPage = () => {
       await addAdmin(formData);
       message.success("Admin added successfully");
     } catch (error: any) {
-      await message.error(error.message);
+      message.error(error.message);
     }
   };
 

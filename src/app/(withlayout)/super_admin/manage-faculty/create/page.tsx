@@ -11,7 +11,6 @@ import {
   academicFacultyOptions,
   bloodGroupOptions,
   genderOptions,
-  managementDepartmentOptions,
 } from "@/constants/global";
 import { Button, Col, Row } from "antd";
 
@@ -167,7 +166,7 @@ const CreateFacultyPage = () => {
                   marginBottom: "10px",
                 }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
           </div>

@@ -54,4 +54,9 @@ export const facultyApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddFacultyMutation, useFacultiesQuery } = facultyApi;
+export const {
+  useAddFacultyMutation,
+  useFacultiesQuery,
+  useFacultyQuery,
+  useUpdateFacultyMutation,
+} = facultyApi;
