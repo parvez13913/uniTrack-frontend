@@ -11,6 +11,8 @@ import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UploadImage from "@/components/ui/UploadImage";
 import { bloodGroupOptions, genderOptions } from "@/constants/global";
 import { useAddFacultyMutation } from "@/redux/api/facultyApi";
+import { facultySchema } from "@/schemas/faculty";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 
 const CreateFacultyPage = () => {
@@ -21,13 +23,12 @@ const CreateFacultyPage = () => {
     delete obj["file"];
     const data = JSON.stringify(obj);
     const formData = new FormData();
-    formData.append("file", file as Blob);
+    formData.append("file", file);
     formData.append("data", data);
+
     message.loading("Faculty Creating...");
     try {
       const response = await addFaculty(formData);
-      console.log(response);
-
       if (!!response) {
         message.success("Faculty added successfully");
       }
@@ -52,7 +53,7 @@ const CreateFacultyPage = () => {
       <h1>Create Faculty</h1>
 
       <div>
-        <Form submitHandler={onSubmit}>
+        <Form submitHandler={onSubmit} resolver={yupResolver(facultySchema)}>
           {/* faculty information */}
           <div
             style={{

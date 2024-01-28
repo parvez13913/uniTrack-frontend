@@ -32,31 +32,7 @@ export const facultyApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.faculty],
     }),
-
-    // get single faculty
-    faculty: build.query({
-      query: (id) => ({
-        url: `${FACULTY_URL}/${id}`,
-        method: "GET",
-      }),
-      providesTags: [tagTypes.faculty],
-    }),
-
-    // update faculty
-    updateFaculty: build.mutation({
-      query: (data) => ({
-        url: `${FACULTY_URL}/${data?.id}`,
-        method: "PATCH",
-        data: data.body,
-      }),
-      invalidatesTags: [tagTypes.faculty],
-    }),
   }),
 });
 
-export const {
-  useAddFacultyMutation,
-  useFacultiesQuery,
-  useFacultyQuery,
-  useUpdateFacultyMutation,
-} = facultyApi;
+export const { useAddFacultyMutation, useFacultiesQuery } = facultyApi;
