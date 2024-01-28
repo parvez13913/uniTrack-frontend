@@ -1,7 +1,11 @@
 "use client";
 
 const CreateStudentPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Create Student</h1>
+    </div>
+  );
 };
 
 export default CreateStudentPage;
