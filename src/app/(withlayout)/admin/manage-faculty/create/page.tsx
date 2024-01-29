@@ -23,7 +23,7 @@ const CreateFacultyPage = () => {
     delete obj["file"];
     const data = JSON.stringify(obj);
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", file as Blob);
     formData.append("data", data);
 
     message.loading("Faculty Creating...");

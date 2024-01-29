@@ -95,6 +95,20 @@ const GuardianInformation = () => {
         >
           <FormInput
             type="text"
+            name="student.guardian.motherContactNo"
+            size="large"
+            label="Mother Contact Number"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormInput
+            type="text"
             name="student.guardian.address"
             size="large"
             label="Address"

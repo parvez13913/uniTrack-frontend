@@ -13,21 +13,6 @@ export const genderOptions = [
   },
 ];
 
-export const managementDepartmentOptions = [
-  {
-    label: "HR",
-    value: "hr manager",
-  },
-  {
-    label: "Finance",
-    value: "finance",
-  },
-  {
-    label: "Management Department",
-    value: "management department",
-  },
-];
-
 export const bloodGroupOptions = [
   {
     label: "A+",
@@ -60,28 +45,6 @@ export const bloodGroupOptions = [
   {
     label: "O+",
     value: "O+",
-  },
-];
-
-export const academicFacultyOptions = [
-  {
-    label: "Engineering",
-    value: "engineering",
-  },
-  {
-    label: "Faculty of science and engineering",
-    value: "Faculty of science and engineering",
-  },
-];
-
-export const academicDepartmentOptions = [
-  {
-    label: "CSE",
-    value: "cse",
-  },
-  {
-    label: "Software Engineering",
-    value: "software engineering",
   },
 ];
 

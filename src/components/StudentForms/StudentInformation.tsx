@@ -2,13 +2,11 @@
 import { Col, Row } from "antd";
 import FormInput from "../Forms/FormInput";
 import FormSelectField from "../Forms/FormSelectField";
-import {
-  academicDepartmentOptions,
-  academicFacultyOptions,
-  academicSemesterOptions,
-  genderOptions,
-} from "@/constants/global";
+import { genderOptions } from "@/constants/global";
 import UploadImage from "../ui/UploadImage";
+import AcademicFacultiesFields from "../Forms/AcademicFacultiesFields";
+import AcademicDepartmentFields from "../Forms/AcademicDepartmentFields";
+import AcademicSemestersFields from "../Forms/AcademicSemestersFields";
 
 const StudentInformation = () => {
   return (
@@ -88,12 +86,9 @@ const StudentInformation = () => {
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
+          <AcademicDepartmentFields
             name="student.academicDepartment"
-            size="large"
             label="Academic Department"
-            options={academicDepartmentOptions}
-            placeholder="Select"
           />
         </Col>
         <Col
@@ -103,12 +98,9 @@ const StudentInformation = () => {
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
+          <AcademicFacultiesFields
             name="student.academicFaculty"
-            size="large"
             label="Academic Faculty"
-            options={academicFacultyOptions}
-            placeholder="Select"
           />
         </Col>
         <Col
@@ -118,12 +110,9 @@ const StudentInformation = () => {
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
+          <AcademicSemestersFields
             name="student.academicSemester"
-            size="large"
             label="Academic Semester"
-            options={academicSemesterOptions}
-            placeholder="Select"
           />
         </Col>
         <Col
@@ -148,7 +137,7 @@ const StudentInformation = () => {
             marginBottom: "10px",
           }}
         >
-          <UploadImage />
+          <UploadImage name="file" />
         </Col>
       </Row>
     </div>

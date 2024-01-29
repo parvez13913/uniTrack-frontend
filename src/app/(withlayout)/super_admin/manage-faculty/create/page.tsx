@@ -1,4 +1,6 @@
 "use client";
+import AcademicDepartmentFields from "@/components/Forms/AcademicDepartmentFields";
+import AcademicFacultiesFields from "@/components/Forms/AcademicFacultiesFields";
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormInput from "@/components/Forms/FormInput";
@@ -6,12 +8,7 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UploadImage from "@/components/ui/UploadImage";
-import {
-  academicDepartmentOptions,
-  academicFacultyOptions,
-  bloodGroupOptions,
-  genderOptions,
-} from "@/constants/global";
+import { bloodGroupOptions, genderOptions } from "@/constants/global";
 import { Button, Col, Row } from "antd";
 
 const CreateFacultyPage = () => {
@@ -136,12 +133,9 @@ const CreateFacultyPage = () => {
                   marginBottom: "10px",
                 }}
               >
-                <FormSelectField
+                <AcademicFacultiesFields
                   name="faculty.academicFaculty"
-                  size="large"
                   label="Academic Faculty"
-                  options={academicFacultyOptions}
-                  placeholder="Select"
                 />
               </Col>
               <Col
@@ -151,12 +145,9 @@ const CreateFacultyPage = () => {
                   marginBottom: "10px",
                 }}
               >
-                <FormSelectField
+                <AcademicDepartmentFields
                   name="faculty.academicDepartment"
-                  size="large"
                   label="Academic Department"
-                  options={academicDepartmentOptions}
-                  placeholder="Select"
                 />
               </Col>
               <Col
