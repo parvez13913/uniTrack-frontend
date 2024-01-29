@@ -41,3 +41,6 @@ export const roomApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const { useAddRoomMutation, useRoomsQuery, useDeleteRoomMutation } =
+  roomApi;

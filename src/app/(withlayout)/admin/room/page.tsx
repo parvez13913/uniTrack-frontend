@@ -1,23 +1,19 @@
 "use client";
-
-import {
-  useBuildingsQuery,
-  useDeleteBuildingMutation,
-} from "@/redux/api/buildingApi";
+import ActionBar from "@/components/ui/ActionBar";
+import UMTable from "@/components/ui/UMTable";
+import { useDeleteRoomMutation, useRoomsQuery } from "@/redux/api/roomApi";
 import { useDebounced } from "@/redux/hooks";
-import { Button, Input, message } from "antd";
-import dayjs from "dayjs";
 import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { Button, Input, message } from "antd";
+import dayjs from "dayjs";
 import Link from "next/link";
-import ActionBar from "@/components/ui/ActionBar";
-import UMTable from "@/components/ui/UMTable";
+import { useState } from "react";
 
-const BuildingPage = () => {
+const RoomPage = () => {
   const query: Record<string, any> = {};
 
   const [size, setSize] = useState<number>(10);
@@ -40,16 +36,16 @@ const BuildingPage = () => {
     query["searchTerm"] = searchTerm;
   }
 
-  const { data, isLoading } = useBuildingsQuery({ ...query });
-  const buildings = data?.buildings;
+  const { data, isLoading } = useRoomsQuery({ ...query });
+  const rooms = data?.rooms;
   const meta = data?.meta;
-  const [deleteBuilding] = useDeleteBuildingMutation();
+  const [deleteRoom] = useDeleteRoomMutation();
 
   const deleteHandler = async (id: string) => {
-    message.loading("Building Deleting...");
+    message.loading("Room Deleting...");
     try {
-      await deleteBuilding(id);
-      message.success("Building deleted successfully");
+      await deleteRoom(id);
+      message.success("Room deleted successfully");
     } catch (error: any) {
       message.error(error.message);
     }
@@ -57,8 +53,21 @@ const BuildingPage = () => {
 
   const columns = [
     {
-      title: "Title",
-      dataIndex: "title",
+      title: "Room no",
+      dataIndex: "roomNumber",
+      sorter: true,
+    },
+    {
+      title: "Floor",
+      dataIndex: "floor",
+      sorter: true,
+    },
+    {
+      title: "Building",
+      dataIndex: "building",
+      render: function (data: any) {
+        return <>{data?.title}</>;
+      },
     },
     {
       title: "CreatedAt",
@@ -73,7 +82,7 @@ const BuildingPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/building/edit/${data?.id}`}>
+            <Link href={`/admin/room/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -113,10 +122,9 @@ const BuildingPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
-
   return (
     <div>
-      <ActionBar title="Building List">
+      <ActionBar title="Room List">
         <Input
           type="text"
           size="large"
@@ -129,8 +137,8 @@ const BuildingPage = () => {
           }}
         />
         <div>
-          <Link href="/admin/building/create">
-            <Button type="primary">Create Building</Button>
+          <Link href="/admin/room/create">
+            <Button type="primary">Create Room</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -148,7 +156,7 @@ const BuildingPage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={buildings}
+        dataSource={rooms}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -160,4 +168,4 @@ const BuildingPage = () => {
   );
 };
 
-export default BuildingPage;
+export default RoomPage;
