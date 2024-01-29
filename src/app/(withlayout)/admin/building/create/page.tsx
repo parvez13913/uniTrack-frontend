@@ -3,17 +3,17 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { useAddDepartmentMutation } from "@/redux/api/departmentApi";
+import { useAddBuildingMutation } from "@/redux/api/buildingApi";
 import { Button, Col, Row, message } from "antd";
 
-const CreateManagementDepartmentPage = () => {
-  const [addDepartment] = useAddDepartmentMutation();
+const CreateBuildingPage = () => {
+  const [addBuilding] = useAddBuildingMutation();
   const onSubmit = async (data: any) => {
-    message.loading("Department Creating...");
+    message.loading("Building Creating...");
     try {
-      const response = await addDepartment(data);
+      const response = await addBuilding(data);
       if (!!response) {
-        message.success("Department added successfully");
+        message.success("Building added successfully");
       }
     } catch (error: any) {
       message.error(error.message);
@@ -25,10 +25,10 @@ const CreateManagementDepartmentPage = () => {
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/${base}` },
-          { label: "department", link: `/${base}/department` },
+          { label: "building", link: `/${base}/building` },
         ]}
       />
-      <h1>Create Department</h1>
+      <h1>Create Building</h1>
       <Form submitHandler={onSubmit}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: "10px 0" }}>
@@ -43,4 +43,4 @@ const CreateManagementDepartmentPage = () => {
   );
 };
 
-export default CreateManagementDepartmentPage;
+export default CreateBuildingPage;
