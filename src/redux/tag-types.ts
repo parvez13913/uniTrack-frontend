@@ -8,6 +8,7 @@ export enum tagTypes {
   academicFaculty = "academicFaculty",
   academicDepartment = "academicDepartment",
   building = "building",
+  room = "room",
 }
 
 export const tagsTypesList = [
@@ -20,4 +21,5 @@ export const tagsTypesList = [
   tagTypes.academicFaculty,
   tagTypes.academicDepartment,
   tagTypes.building,
+  tagTypes.room,
 ];
