@@ -1,23 +1,20 @@
 "use client";
 
-import BuildingFields from "@/components/Forms/BuildingFields";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import FormSelectField, {
-  SelectOptions,
-} from "@/components/Forms/FormSelectField";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { useAddRoomMutation } from "@/redux/api/roomApi";
+import { useAddCourseMutation } from "@/redux/api/courseApi";
 import { Button, Col, Row, message } from "antd";
 
-const CreateRoomPage = () => {
-  const [addRoom] = useAddRoomMutation();
+const CreateCoursePage = () => {
+  const [addCourse] = useAddCourseMutation();
   const onSubmit = async (data: any) => {
-    message.loading("Room Creating...");
+    data.credits = parseInt(data?.credits);
+    message.loading("Course Creating...");
     try {
-      const response = await addRoom(data);
+      const response = await addCourse(data);
       if (!!response) {
-        message.success("Room added successfully");
+        message.success("Course added successfully");
       }
     } catch (error: any) {
       message.error(error.message);
@@ -29,22 +26,29 @@ const CreateRoomPage = () => {
       <UMBreadCrumb
         items={[
           { label: `${base}`, link: `/${base}` },
-          { label: "room", link: `/${base}/room` },
+          { label: "course", link: `/${base}/course` },
         ]}
       />
-      <h1>Create Room</h1>
+      <h1>Create Course</h1>
       <Form submitHandler={onSubmit}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: "10px 0" }}>
             <div style={{ margin: "10px 0px" }}>
-              <FormInput name="roomNumber" label="Room No." size="large" />
+              <FormInput name="title" label="Title" size="large" />
             </div>
             <div style={{ margin: "10px 0px" }}>
-              <FormInput name="floor" label="Floor" size="large" />
+              <FormInput name="code" label="Course Code" size="large" />
             </div>
             <div style={{ margin: "10px 0px" }}>
-              <BuildingFields name="buildingId" label="Building" />
+              <FormInput name="credits" label="Course Credits" size="large" />
             </div>
+            {/* <div style={{ margin: "10px 0px" }}>
+              <FormMultiSelectField
+                options={coursesOptions as SelectOptions[]}
+                name="coursePreRequisites"
+                label="Pre Requisite Courses"
+              />
+            </div> */}
           </Col>
         </Row>
         <Button type="primary" htmlType="submit">
@@ -55,4 +59,4 @@ const CreateRoomPage = () => {
   );
 };
 
-export default CreateRoomPage;
+export default CreateCoursePage;

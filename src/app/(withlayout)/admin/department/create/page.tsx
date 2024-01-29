@@ -32,7 +32,7 @@ const CreateManagementDepartmentPage = () => {
       <Form submitHandler={onSubmit}>
         <Row gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}>
           <Col span={8} style={{ margin: "10px 0" }}>
-            <FormInput name="title" label="Title" />
+            <FormInput name="title" label="Title" size="large" />
           </Col>
         </Row>
         <Button type="primary" htmlType="submit">
