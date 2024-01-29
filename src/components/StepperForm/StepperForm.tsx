@@ -12,16 +12,29 @@ interface ISteps {
 
 interface IStepsProps {
   steps: ISteps[];
+  persistKey: string;
   submitHandler: (element: any) => void;
   navigateLink?: string;
 }
 
-const StepperForm = ({ steps, submitHandler, navigateLink }: IStepsProps) => {
+const StepperForm = ({
+  steps,
+  submitHandler,
+  navigateLink,
+  persistKey,
+}: IStepsProps) => {
   const router = useRouter();
+
   const [current, setCurrent] = useState<number>(
     !!getFromLocalStorage("step")
       ? Number(JSON.parse(getFromLocalStorage("step") as string).step)
       : 0
+  );
+
+  const [savedValues, setSavedValues] = useState(
+    !!getFromLocalStorage(persistKey)
+      ? JSON.parse(getFromLocalStorage(persistKey) as string)
+      : ""
   );
 
   useEffect(() => {
@@ -37,7 +50,13 @@ const StepperForm = ({ steps, submitHandler, navigateLink }: IStepsProps) => {
   };
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-  const methods = useForm();
+  const methods = useForm({ defaultValues: savedValues });
+  const watch = methods.watch();
+
+  useEffect(() => {
+    setToLocalStorage(persistKey, JSON.stringify(watch));
+  }, [watch, persistKey, methods]);
+
   const { handleSubmit, reset } = methods;
   const handelStudentOnSubmit = (data: any) => {
     submitHandler(data);
