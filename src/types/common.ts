@@ -150,3 +150,15 @@ export interface IRoom {
   buildingId: string;
   building: IBuilding;
 }
+
+export interface ICourse {
+  id: string;
+  title: string;
+  code: string;
+  credits: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  prerequisites?: null[] | null;
+  prerequisiteFor?: null[] | null;
+}
