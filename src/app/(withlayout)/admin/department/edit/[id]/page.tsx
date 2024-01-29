@@ -1,4 +1,5 @@
 "use client";
+
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
@@ -12,8 +13,7 @@ import { Button, Col, Row, message } from "antd";
 type IdProps = {
   params: any;
 };
-
-const EditDepartmentPage = ({ params }: IdProps) => {
+const EditManagementDepartmentPage = ({ params }: IdProps) => {
   const { id } = params;
   const { data, isLoading } = useDepartmentQuery(id);
   const [updateDepartment] = useUpdateDepartmentMutation();
@@ -39,12 +39,12 @@ const EditDepartmentPage = ({ params }: IdProps) => {
       <UMBreadCrumb
         items={[
           {
-            label: "super_admin",
-            link: "/super_admin",
+            label: "admin",
+            link: "/admin",
           },
           {
             label: "department",
-            link: "/super_admin/department",
+            link: "/admin/department",
           },
         ]}
       />
@@ -64,4 +64,4 @@ const EditDepartmentPage = ({ params }: IdProps) => {
   );
 };
 
-export default EditDepartmentPage;
+export default EditManagementDepartmentPage;
