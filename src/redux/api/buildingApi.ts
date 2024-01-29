@@ -30,5 +30,20 @@ export const buildingApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.building],
     }),
+
+    // delete building
+    deleteBuilding: build.mutation({
+      query: (id) => ({
+        url: `${BUILDING_URL}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.building],
+    }),
   }),
 });
+
+export const {
+  useAddBuildingMutation,
+  useBuildingsQuery,
+  useDeleteBuildingMutation,
+} = buildingApi;
