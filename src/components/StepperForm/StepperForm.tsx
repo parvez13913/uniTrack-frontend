@@ -62,6 +62,7 @@ const StepperForm = ({
     submitHandler(data);
     reset();
     setToLocalStorage("step", JSON.stringify({ step: 0 }));
+    setToLocalStorage("step", JSON.stringify({}));
     navigateLink && router.push(navigateLink);
   };
   return (
