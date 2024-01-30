@@ -19,6 +19,7 @@ const CreateCoursePage = () => {
       value: course?.id,
     };
   });
+
   const onSubmit = async (data: any) => {
     data.credits = parseInt(data?.credits);
     const coursePreRequisitesOptions = data?.prerequisiteCourses?.map(

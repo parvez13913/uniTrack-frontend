@@ -141,8 +141,8 @@ const OfferedCoursePage = () => {
           }}
         />
         <div>
-          <Link href="/admin/course/create">
-            <Button type="primary">Create Course</Button>
+          <Link href="/admin/offered-course/create">
+            <Button type="primary">Create Offered Course</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
