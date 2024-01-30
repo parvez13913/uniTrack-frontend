@@ -178,6 +178,7 @@ export interface IAcademicCoreSemester {
 }
 
 export interface ISemesterRegistration {
+  [x: string]: any;
   id: string;
   startDate: string;
   endDate: string;
@@ -212,4 +213,53 @@ export interface IOfferedCourse {
   semesterRegistration: ISemesterRegistration;
   course: ICourse;
   academicDepartment: IAcademicCoreDepartment;
+}
+
+export interface IAcademicCoreFaculty {
+  id: string;
+  facultyId: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  profileImage: string;
+  email: string;
+  contactNo: string;
+  gender: string;
+  bloodGroup: string;
+  designation: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  academicDepartmentId: string;
+  academicFacultyId: string;
+}
+
+export interface IOfferedCourseSchedule {
+  id: string;
+  dayOfWeek: string;
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  offeredCourseSectionId: string;
+  roomId: string;
+  facultyId: string;
+  offeredCourseSection: IOfferedCourseSection;
+  faculty: IAcademicCoreFaculty;
+  room: IRoom;
+}
+
+export interface IOfferedCourseSection {
+  id: string;
+  title: string;
+  maxCapacity: number;
+  currentlyEnrolledStudent: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  offeredCourseId: string;
+  offeredCourse: IOfferedCourse;
+  offeredCourseClassSchedules?: IOfferedCourseSchedule[] | null;
+  isTaken?: boolean;
 }

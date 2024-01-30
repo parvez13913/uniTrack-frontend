@@ -1,10 +1,11 @@
 "use client";
+
 import ActionBar from "@/components/ui/ActionBar";
 import UMTable from "@/components/ui/UMTable";
 import {
-  useDeleteOfferedCourseMutation,
-  useOfferedCoursesQuery,
-} from "@/redux/api/offeredCourseApi";
+  useDeleteOfferedCourseSectionMutation,
+  useOfferedCoursesSectionsQuery,
+} from "@/redux/api/offeredCourseSectionApi";
 import { useDebounced } from "@/redux/hooks";
 import {
   DeleteOutlined,
@@ -16,11 +17,11 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
 
-const OfferedCoursePage = () => {
+const OfferedCourseSectionPage = () => {
   const query: Record<string, any> = {};
 
-  const [size, setSize] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
+  const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -39,17 +40,17 @@ const OfferedCoursePage = () => {
     query["searchTerm"] = searchTerm;
   }
 
-  const { data, isLoading } = useOfferedCoursesQuery({ ...query });
-  const offeredCourses = data?.offeredCourses;
+  const { data, isLoading } = useOfferedCoursesSectionsQuery({ ...query });
+  const offeredCoursesSections = data?.offeredCoursesSections;
   const meta = data?.meta;
-  const [deleteOfferedCourse] = useDeleteOfferedCourseMutation();
+  const [deleteOfferedCourse] = useDeleteOfferedCourseSectionMutation();
 
   const deleteHandler = async (id: string) => {
-    message.loading("Offered Course Deleting...");
+    message.loading("Offered Course Section Deleting...");
     try {
       const response = await deleteOfferedCourse(id);
       if (!!response) {
-        message.success("Offered Course deleted successfully");
+        message.success("Offered Course Section deleted successfully");
       }
     } catch (error: any) {
       message.error(error.message);
@@ -58,20 +59,27 @@ const OfferedCoursePage = () => {
 
   const columns = [
     {
-      title: "Course",
-      dataIndex: "course",
+      title: "Offered courses",
+      dataIndex: "offeredCourse",
       sorter: true,
       render: function (data: any) {
-        return <>{data?.title}</>;
+        return <>{data?.course?.title}</>;
       },
     },
     {
-      title: "Academic department",
-      dataIndex: "academicDepartment",
+      title: "Section",
+      dataIndex: "title",
       sorter: true,
-      render: function (data: any) {
-        return <>{data?.title}</>;
-      },
+    },
+    {
+      title: "max capacity",
+      dataIndex: "maxCapacity",
+      sorter: true,
+    },
+    {
+      title: "Currently enrolled Student",
+      dataIndex: "currentlyEnrolledStudent",
+      sorter: true,
     },
     {
       title: "CreatedAt",
@@ -129,7 +137,7 @@ const OfferedCoursePage = () => {
 
   return (
     <div>
-      <ActionBar title="Offered Course List">
+      <ActionBar title="Offered Course Section List">
         <Input
           type="text"
           size="large"
@@ -142,8 +150,8 @@ const OfferedCoursePage = () => {
           }}
         />
         <div>
-          <Link href="/admin/offered-course/create">
-            <Button type="primary">Create Offered Course</Button>
+          <Link href="/admin/offered-course-section/create">
+            <Button type="primary">Create Offered Course Section</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
@@ -161,7 +169,7 @@ const OfferedCoursePage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={offeredCourses}
+        dataSource={offeredCoursesSections}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -173,4 +181,4 @@ const OfferedCoursePage = () => {
   );
 };
 
-export default OfferedCoursePage;
+export default OfferedCourseSectionPage;
