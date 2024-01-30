@@ -44,8 +44,10 @@ const RoomPage = () => {
   const deleteHandler = async (id: string) => {
     message.loading("Room Deleting...");
     try {
-      await deleteRoom(id);
-      message.success("Room deleted successfully");
+      const response = await deleteRoom(id);
+      if (!!response) {
+        message.success("Room deleted successfully");
+      }
     } catch (error: any) {
       message.error(error.message);
     }
@@ -122,6 +124,7 @@ const RoomPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
+
   return (
     <div>
       <ActionBar title="Room List">
