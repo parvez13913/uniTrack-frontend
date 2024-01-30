@@ -21,7 +21,7 @@ const FormDatePicker = ({
   const { control, setValue } = useFormContext();
   const handelOnChange: DatePickerProps["onChange"] = (date, dateString) => {
     onChange ? onChange(date, dateString) : null;
-    setValue(name, dateString);
+    setValue(name, date);
   };
 
   return (

@@ -19,8 +19,8 @@ import { useState } from "react";
 const SemesterRegistrationPage = () => {
   const query: Record<string, any> = {};
 
-  const [size, setSize] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
+  const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");

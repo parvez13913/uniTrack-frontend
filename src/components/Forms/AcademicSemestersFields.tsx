@@ -24,7 +24,7 @@ const AcademicSemestersFields = ({
 
   const academicSemesterOptions = academicSemesters?.map((academicSemester) => {
     return {
-      label: academicSemester?.title,
+      label: academicSemester?.title + "-" + academicSemester?.year,
       value: academicSemester?.id,
     };
   });
