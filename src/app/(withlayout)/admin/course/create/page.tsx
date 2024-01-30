@@ -2,14 +2,34 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormMultiSelectField, {
+  SelectOptions,
+} from "@/components/Forms/FormMultiSelectField";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import { useAddCourseMutation } from "@/redux/api/courseApi";
+import { useAddCourseMutation, useCoursesQuery } from "@/redux/api/courseApi";
 import { Button, Col, Row, message } from "antd";
 
 const CreateCoursePage = () => {
   const [addCourse] = useAddCourseMutation();
+  const { data, isLoading } = useCoursesQuery({ limit: 10, page: 1 });
+  const courses = data?.courses;
+  const coursesOptions = courses?.map((course) => {
+    return {
+      label: course?.title,
+      value: course?.id,
+    };
+  });
   const onSubmit = async (data: any) => {
     data.credits = parseInt(data?.credits);
+    const coursePreRequisitesOptions = data?.prerequisiteCourses?.map(
+      (id: string) => {
+        return {
+          courseId: id,
+        };
+      }
+    );
+    data.prerequisiteCourses = coursePreRequisitesOptions;
+
     message.loading("Course Creating...");
     try {
       const response = await addCourse(data);
@@ -42,13 +62,14 @@ const CreateCoursePage = () => {
             <div style={{ margin: "10px 0px" }}>
               <FormInput name="credits" label="Course Credits" size="large" />
             </div>
-            {/* <div style={{ margin: "10px 0px" }}>
+            <div style={{ margin: "10px 0px" }}>
               <FormMultiSelectField
                 options={coursesOptions as SelectOptions[]}
-                name="coursePreRequisites"
+                name="prerequisiteCourses"
                 label="Pre Requisite Courses"
+                size="large"
               />
-            </div> */}
+            </div>
           </Col>
         </Row>
         <Button type="primary" htmlType="submit">
