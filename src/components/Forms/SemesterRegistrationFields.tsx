@@ -4,12 +4,14 @@ import { useSemesterRegistrationsQuery } from "@/redux/api/semesterRegistrationA
 
 type SemesterRegistrationFieldsProps = {
   name: string;
-  label: string;
+  label?: string;
+  onChange: (element: any) => void;
 };
 
 const SemesterRegistrationFields = ({
   name,
   label,
+  onChange,
 }: SemesterRegistrationFieldsProps) => {
   const { data, isLoading } = useSemesterRegistrationsQuery({
     limit: 100,
@@ -22,10 +24,13 @@ const SemesterRegistrationFields = ({
 
   const semesterRegistrations = data?.semesterRegistrations;
   const semesterRegistrationsOptions = semesterRegistrations?.map(
-    (semesterRegistration) => {
+    (semester) => {
       return {
-        label: semesterRegistration?.academicSemester?.title,
-        value: semesterRegistration?.id,
+        label:
+          semester?.academicSemester?.title +
+          "-" +
+          semester?.academicSemester?.year,
+        value: semester?.id,
       };
     }
   );
@@ -36,6 +41,7 @@ const SemesterRegistrationFields = ({
       label={label}
       options={semesterRegistrationsOptions as SelectOptions[]}
       placeholder="Select"
+      handleChange={(element) => onChange(element)}
     />
   );
 };
