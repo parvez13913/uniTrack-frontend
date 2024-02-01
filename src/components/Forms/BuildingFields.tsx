@@ -2,12 +2,7 @@ import Loading from "@/app/loading";
 import { useBuildingsQuery } from "@/redux/api/buildingApi";
 import FormSelectField, { SelectOptions } from "./FormSelectField";
 
-type BuildingProps = {
-  name: string;
-  label: string;
-};
-
-const BuildingFields = ({ name, label }: BuildingProps) => {
+const BuildingFields = () => {
   const { data, isLoading } = useBuildingsQuery({
     limit: 100,
     page: 1,
@@ -26,10 +21,10 @@ const BuildingFields = ({ name, label }: BuildingProps) => {
   });
   return (
     <FormSelectField
-      name={name}
-      label={label}
-      size="large"
+      name="building"
+      label="building"
       options={buildingsOptions as SelectOptions[]}
+      size="large"
       placeholder="Select"
     />
   );

@@ -8,6 +8,7 @@ import FormSelectField, {
   SelectOptions,
 } from "@/components/Forms/FormSelectField";
 import SemesterRegistrationFields from "@/components/Forms/SemesterRegistrationFields";
+import FormDynamicFields from "@/components/ui/FormDynamicFields";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import { useOfferedCoursesQuery } from "@/redux/api/offeredCourseApi";
 import { useAddOfferedCourseSectionMutation } from "@/redux/api/offeredCourseSectionApi";
@@ -100,25 +101,28 @@ const CreateOfferedCourseSectionPage = () => {
             </div>
             <div style={{ margin: "10px 0px" }}>
               <FormInput
+                name="title"
+                label="Section"
+                size="large"
+                placeholder="Section"
+              />
+            </div>
+            <div style={{ margin: "10px 0px" }}>
+              <FormInput
                 name="maxCapacity"
                 label="Max Capacity"
                 size="large"
                 placeholder="Max Capacity"
               />
             </div>
-            <div style={{ margin: "10px 0px" }}>
-              <FormInput
-                name="title"
-                label="Title"
-                size="large"
-                placeholder="Title"
-              />
-            </div>
+            <Button type="primary" htmlType="submit">
+              Add
+            </Button>
+          </Col>
+          <Col span={16} style={{ margin: "10px 0" }}>
+            <FormDynamicFields />
           </Col>
         </Row>
-        <Button type="primary" htmlType="submit">
-          Add
-        </Button>
       </Form>
     </div>
   );
