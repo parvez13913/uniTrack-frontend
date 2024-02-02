@@ -56,9 +56,12 @@ const CreateOfferedCourseSectionPage = () => {
       if (!!response) {
         message.success("Offered Course section added successfully");
       }
+
+      //I made changes here
       if (!response) {
         message.error("Failed to add offered course section!");
       }
+      //I made changes here
     } catch (error: any) {
       message.error(error.message);
     }
