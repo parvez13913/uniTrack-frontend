@@ -50,11 +50,14 @@ const CreateOfferedCourseSectionPage = () => {
 
   const onSubmit = async (data: any) => {
     data.maxCapacity = parseInt(data?.maxCapacity);
-    message.loading("Offered Course Creating...");
+    message.loading("Offered Course Section  Creating...");
     try {
       const response = await addOfferedCourseSection(data);
       if (!!response) {
-        message.success("Offered Course added successfully");
+        message.success("Offered Course section added successfully");
+      }
+      if (!response) {
+        message.error("Failed to add offered course section!");
       }
     } catch (error: any) {
       message.error(error.message);
