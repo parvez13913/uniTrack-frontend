@@ -20,6 +20,7 @@ const CreateOfferedCourseSectionPage = () => {
   const [academicDepartmentId, setAcademicDepartmentId] = useState<string>();
   const [semesterRegistrationId, setSemesterRegistrationId] =
     useState<string>();
+
   const query: Record<string, any> = {};
 
   if (!!academicDepartmentId) {
@@ -36,10 +37,6 @@ const CreateOfferedCourseSectionPage = () => {
     ...query,
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const offeredCourses = data?.offeredCourses;
   const offeredCoursesOptions = offeredCourses?.map((offCourse) => {
     return {
@@ -50,18 +47,17 @@ const CreateOfferedCourseSectionPage = () => {
 
   const onSubmit = async (data: any) => {
     data.maxCapacity = parseInt(data?.maxCapacity);
+    console.log(data);
+
     message.loading("Offered Course Section  Creating...");
     try {
       const response = await addOfferedCourseSection(data);
       if (!!response) {
         message.success("Offered Course section added successfully");
       }
-
-      //I made changes here
       if (!response) {
         message.error("Failed to add offered course section!");
       }
-      //I made changes here
     } catch (error: any) {
       message.error(error.message);
     }

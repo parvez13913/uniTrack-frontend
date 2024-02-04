@@ -30,6 +30,7 @@ const RoomFields = ({ name }: RoomProps) => {
       name={name}
       label="Room"
       options={roomsOptions as SelectOptions[]}
+      size="large"
     />
   );
 };

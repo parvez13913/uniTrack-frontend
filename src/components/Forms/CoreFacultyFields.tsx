@@ -29,6 +29,7 @@ const CoreFacultyFields = ({ name }: FacultyProps) => {
     <FormSelectField
       name={name}
       label="Faculty"
+      size="large"
       options={facultiesOptions as any}
     />
   );

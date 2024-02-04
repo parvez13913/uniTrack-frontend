@@ -37,6 +37,7 @@ const FormDynamicFields = () => {
                       options={daysOptions}
                       name={`classSchedules.${index}.dayOfWeek`}
                       label="Day of week"
+                      size="large"
                     />
                   </Col>
                   <Col span={8}>
