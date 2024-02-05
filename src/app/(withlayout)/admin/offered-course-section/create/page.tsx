@@ -82,14 +82,14 @@ const CreateOfferedCourseSectionPage = () => {
               <SemesterRegistrationFields
                 name="semesterRegistration"
                 label="Semester Registration"
-                onChange={(element) => setSemesterRegistrationId(element)}
+                onChange={(el) => setSemesterRegistrationId(el)}
               />
             </div>
             <div style={{ margin: "10px 0px" }}>
               <AcademicDepartmentFields
                 name="academicDepartment"
                 label="Academic Department"
-                onChange={(element) => setAcademicDepartmentId(element)}
+                onChange={(el) => setAcademicDepartmentId(el)}
               />
             </div>
             <div style={{ margin: "10px 0px" }}>

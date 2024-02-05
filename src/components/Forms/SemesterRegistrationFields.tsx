@@ -5,7 +5,7 @@ import { useSemesterRegistrationsQuery } from "@/redux/api/semesterRegistrationA
 type SemesterRegistrationFieldsProps = {
   name: string;
   label?: string;
-  onChange: (element: any) => void;
+  onChange: (el: any) => void;
 };
 
 const SemesterRegistrationFields = ({
@@ -37,11 +37,11 @@ const SemesterRegistrationFields = ({
   return (
     <FormSelectField
       name={name}
-      size="large"
       label={label}
       options={semesterRegistrationsOptions as SelectOptions[]}
+      handleChange={(el) => onChange(el)}
+      size="large"
       placeholder="Select"
-      handleChange={(element) => onChange(element)}
     />
   );
 };

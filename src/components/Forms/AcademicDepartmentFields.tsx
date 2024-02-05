@@ -5,7 +5,7 @@ import Loading from "@/app/loading";
 type AcademicDepartmentFieldsProps = {
   name: string;
   label: string;
-  onChange: (element: any) => void;
+  onChange: (el: any) => void;
 };
 
 const AcademicDepartmentFields = ({
@@ -34,11 +34,11 @@ const AcademicDepartmentFields = ({
   return (
     <FormSelectField
       name={name}
-      size="large"
       label={label}
       options={academicDepartmentOptions as SelectOptions[]}
+      handleChange={(el: any) => onChange(el)}
       placeholder="Select"
-      handleChange={(element: any) => onChange(element)}
+      size="large"
     />
   );
 };
