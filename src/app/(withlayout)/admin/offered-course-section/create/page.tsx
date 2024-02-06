@@ -1,7 +1,7 @@
 "use client";
 
 import Loading from "@/app/loading";
-import AcademicDepartmentFields from "@/components/Forms/AcademicDepartmentFields";
+import AcademicDepartmentIDFields from "@/components/Forms/AcademicDepartmentIDFields";
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import FormSelectField, {
@@ -37,6 +37,10 @@ const CreateOfferedCourseSectionPage = () => {
     ...query,
   });
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const offeredCourses = data?.offeredCourses;
   const offeredCoursesOptions = offeredCourses?.map((offCourse) => {
     return {
@@ -47,8 +51,6 @@ const CreateOfferedCourseSectionPage = () => {
 
   const onSubmit = async (data: any) => {
     data.maxCapacity = parseInt(data?.maxCapacity);
-    console.log(data);
-
     message.loading("Offered Course Section  Creating...");
     try {
       const response = await addOfferedCourseSection(data);
@@ -86,7 +88,7 @@ const CreateOfferedCourseSectionPage = () => {
               />
             </div>
             <div style={{ margin: "10px 0px" }}>
-              <AcademicDepartmentFields
+              <AcademicDepartmentIDFields
                 name="academicDepartment"
                 label="Academic Department"
                 onChange={(el) => setAcademicDepartmentId(el)}

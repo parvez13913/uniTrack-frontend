@@ -1,16 +1,18 @@
+import Loading from "@/app/loading";
 import { useAcademicDepartmentsQuery } from "@/redux/api/academic/departmentApi";
 import FormSelectField, { SelectOptions } from "./FormSelectField";
-import Loading from "@/app/loading";
 
-type AcademicDepartmentFieldsProps = {
+type AcademicDepartmentIDFieldsProps = {
   name: string;
   label: string;
+  onChange: (el: any) => void;
 };
 
-const AcademicDepartmentFields = ({
+const AcademicDepartmentIDFields = ({
   name,
   label,
-}: AcademicDepartmentFieldsProps) => {
+  onChange,
+}: AcademicDepartmentIDFieldsProps) => {
   const { data, isLoading } = useAcademicDepartmentsQuery({
     limit: 100,
     page: 1,
@@ -34,10 +36,11 @@ const AcademicDepartmentFields = ({
       name={name}
       label={label}
       options={academicDepartmentOptions as SelectOptions[]}
+      handleChange={(el: any) => onChange(el)}
       placeholder="Select"
       size="large"
     />
   );
 };
 
-export default AcademicDepartmentFields;
+export default AcademicDepartmentIDFields;
