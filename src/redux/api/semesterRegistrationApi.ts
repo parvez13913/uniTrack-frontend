@@ -31,6 +31,16 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.semesterRegistration],
     }),
+
+    // get single semesterRegistrations
+    semesterRegistration: build.query({
+      query: (id: string | string[] | undefined) => ({
+        url: `${SEMESTER_REGISTRATION_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.semesterRegistration],
+    }),
+
     // update semesterRegistration
     updateSemesterRegistration: build.mutation({
       query: (data) => ({
