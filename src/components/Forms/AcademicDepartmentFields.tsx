@@ -4,7 +4,7 @@ import Loading from "@/app/loading";
 
 type AcademicDepartmentFieldsProps = {
   name: string;
-  label: string;
+  label?: string;
 };
 
 const AcademicDepartmentFields = ({

@@ -31,6 +31,15 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.semesterRegistration],
     }),
+    // update semesterRegistration
+    updateSemesterRegistration: build.mutation({
+      query: (data) => ({
+        url: `${SEMESTER_REGISTRATION_URL}/${data?.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.semesterRegistration],
+    }),
 
     // delete semesterRegistration
     deleteSemesterRegistration: build.mutation({
@@ -46,5 +55,6 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
 export const {
   useAddSemesterRegistrationMutation,
   useSemesterRegistrationsQuery,
+  useUpdateSemesterRegistrationMutation,
   useDeleteSemesterRegistrationMutation,
 } = semesterRegistrationApi;
