@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import AcademicSemestersFields from "@/components/Forms/AcademicSemestersFields";
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
@@ -12,14 +13,39 @@ import {
   useSemesterRegistrationQuery,
   useUpdateSemesterRegistrationMutation,
 } from "@/redux/api/semesterRegistrationApi";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
+import dayjs from "dayjs";
 
 const EditSemesterRegistrationPage = ({ params }: { params: any }) => {
   const { id } = params;
   const { data, isLoading } = useSemesterRegistrationQuery(id);
+  const [updateSemesterRegistration] = useUpdateSemesterRegistrationMutation();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const updateOnSubmit = async (values: any) => {
-    console.log(values);
+    const tempObject = { ...values };
+    tempObject["startDate"] = dayjs(tempObject["startDate"]).toISOString();
+    tempObject["endDate"] = dayjs(tempObject["endDate"]).toISOString();
+    tempObject["minCredit"] = Number(tempObject["minCredit"]);
+    tempObject["maxCredit"] = Number(tempObject["maxCredit"]);
+    message.loading("Updating....");
+    try {
+      const response = await updateSemesterRegistration({
+        id,
+        body: tempObject,
+      });
+      if (!!response) {
+        message.success("Updated Semester registration successfully");
+      }
+      if (!response) {
+        message.success("Semester registration Update fail");
+      }
+    } catch (error: any) {
+      message.error(error.message);
+    }
   };
 
   const statusOptions = semesterRegistrationStatus
@@ -30,21 +56,21 @@ const EditSemesterRegistrationPage = ({ params }: { params: any }) => {
         disabled: false,
       };
     })
-    .map((el) => {
+    .map((element) => {
       if (data?.status === "UPCOMING") {
-        if (el.value === "ENDED") {
-          el.disabled = true;
+        if (element.value === "ENDED") {
+          element.disabled = true;
         }
       } else if (data?.status === "ONGOING") {
-        if (el.value === "UPCOMING") {
-          el.disabled = true;
+        if (element.value === "UPCOMING") {
+          element.disabled = true;
         }
       } else if (data?.status === "ENDED") {
-        if (el.value === "UPCOMING" || el.value === "ONGOING") {
-          el.disabled = true;
+        if (element.value === "UPCOMING" || element.value === "ONGOING") {
+          element.disabled = true;
         }
       }
-      return el;
+      return element;
     });
 
   const defaultValues = {
@@ -115,7 +141,9 @@ const EditSemesterRegistrationPage = ({ params }: { params: any }) => {
             </div>
           </Col>
         </Row>
-        <Button htmlType="submit">Update</Button>
+        <Button type="primary" htmlType="submit">
+          Update
+        </Button>
       </Form>
     </>
   );
