@@ -16,7 +16,7 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.semesterRegistration],
     }),
 
-    // get all semesterRegistrations
+    // get all semesterRegistration
     semesterRegistrations: build.query({
       query: (arg: Record<string, any>) => ({
         url: SEMESTER_REGISTRATION_URL,
@@ -65,6 +65,7 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
 export const {
   useAddSemesterRegistrationMutation,
   useSemesterRegistrationsQuery,
+  useSemesterRegistrationQuery,
   useUpdateSemesterRegistrationMutation,
   useDeleteSemesterRegistrationMutation,
 } = semesterRegistrationApi;
