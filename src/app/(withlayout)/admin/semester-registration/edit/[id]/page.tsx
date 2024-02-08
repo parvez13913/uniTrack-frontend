@@ -41,7 +41,7 @@ const EditSemesterRegistrationPage = ({ params }: { params: any }) => {
         message.success("Updated Semester registration successfully");
       }
       if (!response) {
-        message.success("Semester registration Update fail");
+        message.success("Semester registration Update failed");
       }
     } catch (error: any) {
       message.error(error.message);
