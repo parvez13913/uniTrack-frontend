@@ -77,6 +77,14 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.semesterRegistration],
     }),
+    // get my semester courses
+    mySemesterRegistrationCourses: build.query({
+      query: () => ({
+        url: `${SEMESTER_REGISTRATION_URL}/getMySemesterCourses`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.semesterRegistration],
+    }),
   }),
 });
 
@@ -88,4 +96,5 @@ export const {
   useDeleteSemesterRegistrationMutation,
   useMyRegistrationQuery,
   useStartRegistrationMutation,
+  useMySemesterRegistrationCoursesQuery,
 } = semesterRegistrationApi;

@@ -2,14 +2,15 @@ import { Collapse } from "antd";
 
 const { Panel } = Collapse;
 
-export type ITemsProps = {
+export type ItemsProps = {
   key: string;
   label: string;
   children: React.ReactNode | React.ReactElement;
+  isTaken?: boolean;
 };
 
 type UMCollapseProps = {
-  items: ITemsProps[];
+  items: ItemsProps[];
   onChange?: (element: string | string[] | "") => void;
   defaultActiveKey?: string[];
 };
@@ -21,9 +22,9 @@ const UMCollapse = ({
 }: UMCollapseProps) => {
   return (
     <Collapse defaultActiveKey={defaultActiveKey} onChange={onChange}>
-      {items.map((item) => {
+      {items?.map((item) => {
         return (
-          <Panel header={item.label} key={item?.key}>
+          <Panel header={item?.label} key={item?.key}>
             {item?.children}
           </Panel>
         );

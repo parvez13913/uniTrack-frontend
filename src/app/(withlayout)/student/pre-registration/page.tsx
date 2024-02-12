@@ -1,41 +1,136 @@
 "use client";
 
-import UMCollapse from "@/components/ui/UMCollapse";
+import Loading from "@/app/loading";
+import ActionBar from "@/components/ui/ActionBar";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import UMCollapse, { ItemsProps } from "@/components/ui/UMCollapse";
+import { useMySemesterRegistrationCoursesQuery } from "@/redux/api/semesterRegistrationApi";
+import { Button } from "antd";
 
 const ViewPreregistrationPage = () => {
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+  const { data, isLoading } = useMySemesterRegistrationCoursesQuery({});
 
-  const items = [
-    {
-      key: "1",
-      label: "OOP",
-      children: <p>{text}</p>,
-    },
-    {
-      key: "2",
-      label: "This is panel header 2",
-      children: <p>{text}</p>,
-    },
-    {
-      key: "3",
-      label: "This is panel header 3",
-      children: <p>{text}</p>,
-    },
-  ];
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const availableCourses: ItemsProps[] = data?.map(
+    (availableCourse: any, index: number) => {
+      const obj = {
+        key: index,
+        label: availableCourse?.course?.title,
+        isTaken: availableCourse.isTaken,
+        children: (
+          <table style={{ padding: "0px 10px", borderSpacing: "10px 15px" }}>
+            {availableCourse?.offeredCourseSections?.map(
+              (section: any, index: number) => {
+                return (
+                  <tr key={index}>
+                    <td style={{ width: "30%" }}>
+                      <span style={{ fontWeight: "bold" }}>
+                        Sec - {section?.title}{" "}
+                      </span>
+                    </td>
+                    <td style={{ width: "30%" }}>
+                      <span>
+                        Enrolled - ({section?.currentlyEnrolledStudent}/
+                        {section?.maxCapacity})
+                      </span>
+                    </td>
+
+                    <td style={{ width: "30%" }}>
+                      <table
+                        style={{
+                          border: "1px solid #d9d9d9",
+                          padding: "5px 10px",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        <th
+                          style={{
+                            textAlign: "center",
+                            borderBottom: "1px solid black",
+                            textTransform: "capitalize",
+                          }}
+                          colSpan={3}
+                        >
+                          class schedule
+                        </th>
+
+                        {section?.offeredCourseClassSchedules?.map(
+                          (el: any, index: number) => {
+                            return (
+                              <tr
+                                key={index}
+                                style={{
+                                  width: "30%",
+                                }}
+                              >
+                                <td
+                                  style={{
+                                    fontWeight: 700,
+                                    marginRight: "10px",
+                                    textTransform: "capitalize",
+                                    textAlign: "right",
+                                  }}
+                                >
+                                  {el?.dayOfWeek}
+                                </td>
+                                <td
+                                  style={{
+                                    textAlign: "left",
+                                    padding: "0px 15px",
+                                  }}
+                                >
+                                  {el?.startTime} - {el?.endTime}
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )}
+                      </table>
+                    </td>
+                    <td
+                      style={{
+                        width: "30%",
+                      }}
+                    >
+                      {availableCourse?.isTaken && section?.isTaken ? (
+                        <Button type="primary" danger>
+                          Withdraw
+                        </Button>
+                      ) : (
+                        <Button type="primary">Enroll</Button>
+                      )}
+                    </td>
+                  </tr>
+                );
+              }
+            )}
+          </table>
+        ),
+      };
+
+      return obj;
+    }
+  );
 
   const onChange = (element: any) => {
     console.log(element);
   };
 
+  const base = "student";
+
   return (
-    <div>
-      <h1>ViewPreregistrationPage</h1>
-      <UMCollapse items={items} onChange={onChange} defaultActiveKey={["1"]} />
-    </div>
+    <>
+      <UMBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]} />
+      <ActionBar title="Course Pre-registration" />
+      <UMCollapse
+        items={availableCourses}
+        onChange={onChange}
+        defaultActiveKey={["1"]}
+      />
+    </>
   );
 };
 
