@@ -66,7 +66,7 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
         url: `${SEMESTER_REGISTRATION_URL}/getMyRegistration`,
         method: "GET",
       }),
-      providesTags: [tagTypes.semesterRegistration],
+      providesTags: [tagTypes.courseRegistration],
     }),
 
     // start Registration
@@ -75,15 +75,54 @@ export const semesterRegistrationApi = baseApi.injectEndpoints({
         url: `${SEMESTER_REGISTRATION_URL}/startRegistration`,
         method: "POST",
       }),
-      invalidatesTags: [tagTypes.semesterRegistration],
+      invalidatesTags: [tagTypes.courseRegistration],
     }),
+
     // get my semester courses
     mySemesterRegistrationCourses: build.query({
       query: () => ({
         url: `${SEMESTER_REGISTRATION_URL}/getMySemesterCourses`,
         method: "GET",
       }),
-      providesTags: [tagTypes.semesterRegistration],
+      providesTags: [tagTypes.courseRegistration],
+    }),
+
+    // enroll Into Course
+    enrollIntoCourse: build.mutation({
+      query: (data) => ({
+        url: `${SEMESTER_REGISTRATION_URL}/enrollIntoCourse`,
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
+
+    // withdraw From Course
+    withdrawFromCourse: build.mutation({
+      query: (data) => ({
+        url: `${SEMESTER_REGISTRATION_URL}/withdrawFromCourse`,
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
+
+    // confirm My Registration
+    confirmMyRegistration: build.mutation({
+      query: () => ({
+        url: `${SEMESTER_REGISTRATION_URL}/confirmMyRegistration`,
+        method: "POST",
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
+    }),
+
+    // start New Semester
+    startNewSemester: build.mutation({
+      query: (id) => ({
+        url: `${SEMESTER_REGISTRATION_URL}/${id}/startNewSemester`,
+        method: "POST",
+      }),
+      invalidatesTags: [tagTypes.courseRegistration],
     }),
   }),
 });
@@ -97,4 +136,6 @@ export const {
   useMyRegistrationQuery,
   useStartRegistrationMutation,
   useMySemesterRegistrationCoursesQuery,
+  useEnrollIntoCourseMutation,
+  useWithdrawFromCourseMutation,
 } = semesterRegistrationApi;

@@ -5,10 +5,21 @@ import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMCollapse, { ItemsProps } from "@/components/ui/UMCollapse";
 import { useMySemesterRegistrationCoursesQuery } from "@/redux/api/semesterRegistrationApi";
-import { Button } from "antd";
+import { Button, message } from "antd";
 
 const ViewPreregistrationPage = () => {
   const { data, isLoading } = useMySemesterRegistrationCoursesQuery({});
+
+  const handleEnroll = async ({
+    offeredCourseId,
+    offeredCourseSectionId,
+  }: any) => {
+    try {
+      console.log(offeredCourseId, offeredCourseSectionId);
+    } catch (error: any) {
+      message.error(error);
+    }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -28,7 +39,7 @@ const ViewPreregistrationPage = () => {
                   <tr key={index}>
                     <td style={{ width: "30%" }}>
                       <span style={{ fontWeight: "bold" }}>
-                        Sec - {section?.title}{" "}
+                        Section - {section?.title}{" "}
                       </span>
                     </td>
                     <td style={{ width: "30%" }}>
@@ -58,7 +69,7 @@ const ViewPreregistrationPage = () => {
                         </th>
 
                         {section?.offeredCourseClassSchedules?.map(
-                          (el: any, index: number) => {
+                          (element: any, index: number) => {
                             return (
                               <tr
                                 key={index}
@@ -74,7 +85,7 @@ const ViewPreregistrationPage = () => {
                                     textAlign: "right",
                                   }}
                                 >
-                                  {el?.dayOfWeek}
+                                  {element?.dayOfWeek}
                                 </td>
                                 <td
                                   style={{
@@ -82,7 +93,7 @@ const ViewPreregistrationPage = () => {
                                     padding: "0px 15px",
                                   }}
                                 >
-                                  {el?.startTime} - {el?.endTime}
+                                  {element?.startTime} - {element?.endTime}
                                 </td>
                               </tr>
                             );
@@ -100,7 +111,17 @@ const ViewPreregistrationPage = () => {
                           Withdraw
                         </Button>
                       ) : (
-                        <Button type="primary">Enroll</Button>
+                        <Button
+                          type="primary"
+                          onClick={() =>
+                            handleEnroll({
+                              offeredCourseId: availableCourse?.id,
+                              offeredCourseSectionId: section?.id,
+                            })
+                          }
+                        >
+                          Enroll
+                        </Button>
                       )}
                     </td>
                   </tr>
