@@ -7,6 +7,7 @@ import UMCollapse, { ItemsProps } from "@/components/ui/UMCollapse";
 import {
   useEnrollIntoCourseMutation,
   useMySemesterRegistrationCoursesQuery,
+  useWithdrawFromCourseMutation,
 } from "@/redux/api/semesterRegistrationApi";
 import { Button, message } from "antd";
 
@@ -14,6 +15,7 @@ const ViewPreregistrationPage = () => {
   const { data, isLoading } = useMySemesterRegistrationCoursesQuery({});
 
   const [enrollIntoCourse] = useEnrollIntoCourseMutation();
+  const [withdrawFromCourse] = useWithdrawFromCourseMutation();
 
   const handleEnroll = async ({
     offeredCourseId,
@@ -30,6 +32,27 @@ const ViewPreregistrationPage = () => {
       }
       if (!!response) {
         message.success("Successfully Enrolled");
+      }
+    } catch (error: any) {
+      message.error(error);
+    }
+  };
+
+  const handelWithdraw = async ({
+    offeredCourseId,
+    offeredCourseSectionId,
+  }: any) => {
+    try {
+      const response = await withdrawFromCourse({
+        offeredCourseId,
+        offeredCourseSectionId,
+      });
+
+      if (!response) {
+        message.success("Withdraw failed");
+      }
+      if (!!response) {
+        message.success("Successfully Withdraw");
       }
     } catch (error: any) {
       message.error(error);
@@ -122,7 +145,16 @@ const ViewPreregistrationPage = () => {
                       }}
                     >
                       {availableCourse?.isTaken && section?.isTaken ? (
-                        <Button type="primary" danger>
+                        <Button
+                          type="primary"
+                          danger
+                          onClick={() =>
+                            handelWithdraw({
+                              offeredCourseId: availableCourse?.id,
+                              offeredCourseSectionId: section?.id,
+                            })
+                          }
+                        >
                           Withdraw
                         </Button>
                       ) : (
