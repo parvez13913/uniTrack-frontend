@@ -4,18 +4,33 @@ import Loading from "@/app/loading";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMCollapse, { ItemsProps } from "@/components/ui/UMCollapse";
-import { useMySemesterRegistrationCoursesQuery } from "@/redux/api/semesterRegistrationApi";
+import {
+  useEnrollIntoCourseMutation,
+  useMySemesterRegistrationCoursesQuery,
+} from "@/redux/api/semesterRegistrationApi";
 import { Button, message } from "antd";
 
 const ViewPreregistrationPage = () => {
   const { data, isLoading } = useMySemesterRegistrationCoursesQuery({});
+
+  const [enrollIntoCourse] = useEnrollIntoCourseMutation();
 
   const handleEnroll = async ({
     offeredCourseId,
     offeredCourseSectionId,
   }: any) => {
     try {
-      console.log(offeredCourseId, offeredCourseSectionId);
+      const response = await enrollIntoCourse({
+        offeredCourseId,
+        offeredCourseSectionId,
+      });
+
+      if (!response) {
+        message.success("Enroll failed");
+      }
+      if (!!response) {
+        message.success("Successfully Enrolled");
+      }
     } catch (error: any) {
       message.error(error);
     }

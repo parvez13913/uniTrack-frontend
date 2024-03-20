@@ -138,4 +138,6 @@ export const {
   useMySemesterRegistrationCoursesQuery,
   useEnrollIntoCourseMutation,
   useWithdrawFromCourseMutation,
+  useConfirmMyRegistrationMutation,
+  useStartNewSemesterMutation,
 } = semesterRegistrationApi;
