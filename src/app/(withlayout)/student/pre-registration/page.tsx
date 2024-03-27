@@ -5,6 +5,7 @@ import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMCollapse, { ItemsProps } from "@/components/ui/UMCollapse";
 import {
+  useConfirmMyRegistrationMutation,
   useEnrollIntoCourseMutation,
   useMySemesterRegistrationCoursesQuery,
   useWithdrawFromCourseMutation,
@@ -16,6 +17,7 @@ const ViewPreregistrationPage = () => {
 
   const [enrollIntoCourse] = useEnrollIntoCourseMutation();
   const [withdrawFromCourse] = useWithdrawFromCourseMutation();
+  const [confirmMyRegistration] = useConfirmMyRegistrationMutation();
 
   const handleEnroll = async ({
     offeredCourseId,
@@ -53,6 +55,20 @@ const ViewPreregistrationPage = () => {
       }
       if (!!response) {
         message.success("Successfully Withdraw");
+      }
+    } catch (error: any) {
+      message.error(error);
+    }
+  };
+
+  const handleConfirmRegistration = async () => {
+    try {
+      const response = await confirmMyRegistration({});
+      if (!response) {
+        message.success("Registered failed");
+      }
+      if (!!response) {
+        message.success("Successfully registered");
       }
     } catch (error: any) {
       message.error(error);
@@ -187,6 +203,12 @@ const ViewPreregistrationPage = () => {
     console.log(element);
   };
 
+  const isAtLeastOneCourseTaken =
+    availableCourses?.filter((element: ItemsProps) => element.isTaken === true)
+      .length > 0
+      ? true
+      : false;
+
   const base = "student";
 
   return (
@@ -198,6 +220,17 @@ const ViewPreregistrationPage = () => {
         onChange={onChange}
         defaultActiveKey={["1"]}
       />
+      {isAtLeastOneCourseTaken && (
+        <div
+          style={{
+            margin: "15px 0px",
+          }}
+        >
+          <Button type="primary" onClick={handleConfirmRegistration}>
+            Confirm Registration
+          </Button>
+        </div>
+      )}
     </>
   );
 };
