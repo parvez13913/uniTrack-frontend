@@ -76,6 +76,32 @@ export const studentApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.student],
     }),
+
+    myCourseSchedules: build.query({
+      query: (arg: Record<string, any>) => {
+        return {
+          url: `${STUDENT_URL}/my-course-schedules`,
+          method: "GET",
+          params: arg,
+        };
+      },
+      transformResponse: (response: IStudent[], meta: IMeta) => {
+        return {
+          myCourseSchedules: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.student],
+    }),
+
+    myAcademicInfos: build.query({
+      query: (arg: Record<string, any>) => ({
+        url: `${STUDENT_URL}/my-academic-infos`,
+        method: "GET",
+        params: arg,
+      }),
+      providesTags: [tagTypes.student],
+    }),
   }),
 });
 
@@ -86,4 +112,5 @@ export const {
   useUpdateStudentMutation,
   useDeleteStudentMutation,
   useMyCoursesQuery,
+  useMyCourseSchedulesQuery,
 } = studentApi;
