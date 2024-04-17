@@ -63,7 +63,7 @@ export const studentApi = baseApi.injectEndpoints({
     myCourses: build.query({
       query: (arg: Record<string, any>) => {
         return {
-          url: `${STUDENT_URL}/my-courses`,
+          url: `${STUDENT_URL}/myCourses`,
           method: "GET",
           params: arg,
         };
@@ -80,7 +80,7 @@ export const studentApi = baseApi.injectEndpoints({
     myCourseSchedules: build.query({
       query: (arg: Record<string, any>) => {
         return {
-          url: `${STUDENT_URL}/my-course-schedules`,
+          url: `${STUDENT_URL}/myCoursesSchedules`,
           method: "GET",
           params: arg,
         };
@@ -96,7 +96,7 @@ export const studentApi = baseApi.injectEndpoints({
 
     myAcademicInfos: build.query({
       query: (arg: Record<string, any>) => ({
-        url: `${STUDENT_URL}/my-academic-infos`,
+        url: `${STUDENT_URL}/myAcademicInfo`,
         method: "GET",
         params: arg,
       }),

@@ -4,14 +4,16 @@ import UMTable from "@/components/ui/UMTable";
 import {
   useDeleteSemesterRegistrationMutation,
   useSemesterRegistrationsQuery,
+  useStartNewSemesterMutation,
 } from "@/redux/api/semesterRegistrationApi";
 import { useDebounced } from "@/redux/hooks";
 import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
+  PlayCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Input, message } from "antd";
+import { Button, Input, Tooltip, message } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useState } from "react";
@@ -44,6 +46,8 @@ const SemesterRegistrationPage = () => {
   const meta = data?.meta;
   const [deleteSemesterRegistration] = useDeleteSemesterRegistrationMutation();
 
+  const [startNewSemester] = useStartNewSemesterMutation();
+
   const deleteHandler = async (id: string) => {
     message.loading("Semester Registration Deleting...");
     try {
@@ -53,6 +57,15 @@ const SemesterRegistrationPage = () => {
       }
     } catch (error: any) {
       message.error(error.message);
+    }
+  };
+
+  const handleStartSemester = async (id: string) => {
+    try {
+      const response = await startNewSemester(id).unwrap();
+      message.success(response);
+    } catch (error: any) {
+      message.error(error?.message);
     }
   };
 
@@ -104,12 +117,24 @@ const SemesterRegistrationPage = () => {
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
                 type="primary"
               >
                 <EditOutlined />
               </Button>
             </Link>
+            {data?.status === "ENDED" && (
+              <Tooltip title="Start Semester" placement="bottom">
+                <Button
+                  type="primary"
+                  onClick={() => handleStartSemester(data?.id)}
+                  style={{
+                    margin: "0px 5px",
+                  }}
+                >
+                  <PlayCircleOutlined />
+                </Button>
+              </Tooltip>
+            )}
             <Button
               onClick={() => deleteHandler(data?.id)}
               type="primary"

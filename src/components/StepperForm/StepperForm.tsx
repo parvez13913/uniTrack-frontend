@@ -70,7 +70,7 @@ const StepperForm = ({
       <Steps current={current} items={items} />
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handelStudentOnSubmit)}>
-          <div>{steps[current].content}</div>
+          <div>{steps[current]?.content}</div>
           <div style={{ marginTop: 24 }}>
             {current > 0 && (
               <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
