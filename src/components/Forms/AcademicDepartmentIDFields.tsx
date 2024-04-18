@@ -18,13 +18,9 @@ const AcademicDepartmentIDFields = ({
     page: 1,
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const academicDepartments = data?.academicDepartments;
   const academicDepartmentOptions = academicDepartments?.map(
-    (academicDepartment) => {
+    (academicDepartment: any) => {
       return {
         label: academicDepartment?.title,
         value: academicDepartment?.id,
@@ -35,10 +31,10 @@ const AcademicDepartmentIDFields = ({
     <FormSelectField
       name={name}
       label={label}
-      options={academicDepartmentOptions as SelectOptions[]}
-      handleChange={(el: any) => onChange(el)}
       placeholder="Select"
       size="large"
+      options={academicDepartmentOptions as SelectOptions[]}
+      handleChange={(el: any) => onChange(el)}
     />
   );
 };

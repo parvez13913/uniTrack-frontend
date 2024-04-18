@@ -17,17 +17,17 @@ import { useState } from "react";
 
 const CreateOfferedCourseSectionPage = () => {
   const [addOfferedCourseSection] = useAddOfferedCourseSectionMutation();
-  const [academicDepartmentId, setAcademicDepartmentId] = useState<string>();
+  const [acDepartmentId, setAcDepartmentId] = useState<string>();
   const [semesterRegistrationId, setSemesterRegistrationId] =
     useState<string>();
 
   const query: Record<string, any> = {};
 
-  if (!!academicDepartmentId) {
-    query["academicDepartmentId"] = academicDepartmentId;
+  if (!!acDepartmentId) {
+    query["academicDepartmentId"] = acDepartmentId;
   }
 
-  if (!!academicDepartmentId) {
+  if (!!semesterRegistrationId) {
     query["semesterRegistrationId"] = semesterRegistrationId;
   }
 
@@ -52,14 +52,16 @@ const CreateOfferedCourseSectionPage = () => {
   const onSubmit = async (data: any) => {
     data.maxCapacity = parseInt(data?.maxCapacity);
     message.loading("Offered Course Section  Creating...");
+    console.log(data);
+
     try {
-      const response = await addOfferedCourseSection(data);
-      if (!!response) {
-        message.success("Offered Course section added successfully");
-      }
-      if (!response) {
-        message.error("Failed to add offered course section!");
-      }
+      // const response = await addOfferedCourseSection(data);
+      // if (!!response) {
+      //   message.success("Offered Course section added successfully");
+      // }
+      // if (!response) {
+      //   message.error("Failed to add offered course section!");
+      // }
     } catch (error: any) {
       message.error(error.message);
     }
@@ -91,7 +93,7 @@ const CreateOfferedCourseSectionPage = () => {
               <AcademicDepartmentIDFields
                 name="academicDepartment"
                 label="Academic Department"
-                onChange={(el) => setAcademicDepartmentId(el)}
+                onChange={(el) => setAcDepartmentId(el)}
               />
             </div>
             <div style={{ margin: "10px 0px" }}>

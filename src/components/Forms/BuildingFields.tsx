@@ -22,7 +22,7 @@ const BuildingFields = () => {
   return (
     <FormSelectField
       name="building"
-      label="building"
+      label="Building"
       options={buildingsOptions as SelectOptions[]}
       size="large"
       placeholder="Select"

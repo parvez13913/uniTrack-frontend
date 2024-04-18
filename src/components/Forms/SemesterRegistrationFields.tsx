@@ -19,7 +19,7 @@ const SemesterRegistrationFields = ({
   });
 
   if (isLoading) {
-    return <Loading />;
+    <Loading />;
   }
 
   const semesterRegistrations = data?.semesterRegistrations;
@@ -38,10 +38,10 @@ const SemesterRegistrationFields = ({
     <FormSelectField
       name={name}
       label={label}
-      options={semesterRegistrationsOptions as SelectOptions[]}
-      handleChange={(el) => onChange(el)}
       size="large"
       placeholder="Select"
+      options={semesterRegistrationsOptions as SelectOptions[]}
+      handleChange={(el) => (onChange ? onChange(el) : undefined)}
     />
   );
 };
