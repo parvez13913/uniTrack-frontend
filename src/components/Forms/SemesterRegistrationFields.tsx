@@ -18,7 +18,7 @@ const SemesterRegistrationFields = ({
     page: 1,
   });
 
-  if (isLoading) {
+  if (!!isLoading) {
     <Loading />;
   }
 
@@ -38,8 +38,6 @@ const SemesterRegistrationFields = ({
     <FormSelectField
       name={name}
       label={label}
-      size="large"
-      placeholder="Select"
       options={semesterRegistrationsOptions as SelectOptions[]}
       handleChange={(el) => (onChange ? onChange(el) : undefined)}
     />

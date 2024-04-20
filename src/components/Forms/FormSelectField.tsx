@@ -20,11 +20,11 @@ type SelectFieldProps = {
 
 const FormSelectField = ({
   name,
-  size,
+  size = "large",
   value,
-  placeholder,
-  label,
+  placeholder = "select",
   options,
+  label,
   defaultValue,
   handleChange,
 }: SelectFieldProps) => {

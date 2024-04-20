@@ -38,7 +38,7 @@ const CreateOfferedCourseSectionPage = () => {
   });
 
   if (isLoading) {
-    return <Loading />;
+    <Loading />;
   }
 
   const offeredCourses = data?.offeredCourses;
@@ -52,16 +52,15 @@ const CreateOfferedCourseSectionPage = () => {
   const onSubmit = async (data: any) => {
     data.maxCapacity = parseInt(data?.maxCapacity);
     message.loading("Offered Course Section  Creating...");
-    console.log(data);
 
     try {
-      // const response = await addOfferedCourseSection(data);
-      // if (!!response) {
-      //   message.success("Offered Course section added successfully");
-      // }
-      // if (!response) {
-      //   message.error("Failed to add offered course section!");
-      // }
+      const response = await addOfferedCourseSection(data);
+      if (!!response) {
+        message.success("Offered Course section added successfully");
+      }
+      if (!response) {
+        message.error("Failed to add offered course section!");
+      }
     } catch (error: any) {
       message.error(error.message);
     }

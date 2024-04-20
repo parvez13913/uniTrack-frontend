@@ -18,6 +18,10 @@ const AcademicDepartmentIDFields = ({
     page: 1,
   });
 
+  if (!!isLoading) {
+    return <Loading />;
+  }
+
   const academicDepartments = data?.academicDepartments;
   const academicDepartmentOptions = academicDepartments?.map(
     (academicDepartment: any) => {
