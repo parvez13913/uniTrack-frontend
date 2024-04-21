@@ -15,6 +15,8 @@ import { Button, message } from "antd";
 const ViewPreregistrationPage = () => {
   const { data, isLoading } = useMySemesterRegistrationCoursesQuery({});
 
+  console.log(data);
+
   const [enrollIntoCourse] = useEnrollIntoCourseMutation();
   const [withdrawFromCourse] = useWithdrawFromCourseMutation();
   const [confirmMyRegistration] = useConfirmMyRegistrationMutation();
@@ -214,7 +216,7 @@ const ViewPreregistrationPage = () => {
   return (
     <>
       <UMBreadCrumb items={[{ label: `${base}`, link: `/${base}` }]} />
-      <ActionBar title="Course Pre-registration" />
+      <ActionBar title="Course Pre-Registration" />
       <UMCollapse
         items={availableCourses}
         onChange={onChange}

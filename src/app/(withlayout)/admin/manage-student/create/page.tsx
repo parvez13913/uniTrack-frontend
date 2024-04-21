@@ -39,6 +39,7 @@ const CreateStudentPage = () => {
     formData.append("file", file as Blob);
     formData.append("data", data);
     message.loading("Student Creating...");
+
     try {
       const response = await addStudent(formData);
       if (!!response) {
