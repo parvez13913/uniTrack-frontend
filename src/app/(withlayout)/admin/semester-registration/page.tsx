@@ -63,7 +63,7 @@ const SemesterRegistrationPage = () => {
   const handleStartSemester = async (id: string) => {
     try {
       const response = await startNewSemester(id).unwrap();
-      message.success(response);
+      message.success(response?.message);
     } catch (error: any) {
       message.error(error?.message);
     }

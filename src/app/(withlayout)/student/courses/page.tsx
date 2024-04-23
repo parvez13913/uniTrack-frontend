@@ -25,6 +25,8 @@ const StudentCoursesPage = () => {
     return <Loading />;
   }
 
+  console.log(data);
+
   const myCourses = data?.myCourses;
   const meta = data?.meta;
 
