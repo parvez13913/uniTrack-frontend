@@ -22,38 +22,41 @@ export default function ClassSchedule({ data }: ClassScheduleProps) {
             <div>
               <b style={{ textTransform: "capitalize" }}>faculty name</b>
               <Link
-                href={`/student/faculty/${schedule.faculty.id}`}
+                href={`/student/faculty/${schedule?.faculties?.facultyId}`}
                 style={{ marginLeft: "20px" }}
               >
-                {schedule.faculty.firstName} {schedule.faculty.lastName}{" "}
-                {schedule.faculty.middleName}
+                {schedule?.faculties?.firstName}{" "}
+                {schedule?.faculties?.middleName}{" "}
+                {schedule?.faculties?.lastName}
               </Link>
             </div>
             <div>
               <b style={{ textTransform: "capitalize" }}>Day</b>
-              <span style={{ marginLeft: "20px" }}>{schedule.dayOfWeek}</span>
+              <span style={{ marginLeft: "20px" }}>{schedule?.dayOfWeek}</span>
             </div>
             <div>
               <b style={{ textTransform: "capitalize" }}>time</b>
               <span style={{ marginLeft: "20px" }}>
-                {schedule.startTime} - {schedule.endTime}
+                {schedule?.startTime} - {schedule?.endTime}
               </span>
             </div>
             <div>
               <b style={{ textTransform: "capitalize" }}>building</b>
               <span style={{ marginLeft: "20px" }}>
-                {schedule.room.building.title}
+                {schedule?.room?.building?.title}
               </span>
             </div>
             <div>
               <b style={{ textTransform: "capitalize" }}>room no.</b>
               <span style={{ marginLeft: "20px" }}>
-                {schedule.room.roomNumber}
+                {schedule?.room?.roomNumber}
               </span>
             </div>
             <div>
               <b style={{ textTransform: "capitalize" }}>floor no.</b>
-              <span style={{ marginLeft: "20px" }}>{schedule.room.floor}</span>
+              <span style={{ marginLeft: "20px" }}>
+                {schedule?.room?.floor}
+              </span>
             </div>
           </div>
         );

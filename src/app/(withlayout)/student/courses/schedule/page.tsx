@@ -10,7 +10,6 @@ import { IOfferedCourseSchedule } from "@/types";
 const MyCourseSchedulePage = () => {
   const { data, isLoading } = useMyCourseSchedulesQuery({});
   const myCourseSchedules = data?.myCourseSchedules;
-
   const columns = [
     {
       title: "Course name",
