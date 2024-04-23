@@ -235,6 +235,7 @@ export interface IAcademicCoreFaculty {
 }
 
 export interface IOfferedCourseSchedule {
+  faculties: any;
   id: string;
   dayOfWeek: string;
   startTime: string;
