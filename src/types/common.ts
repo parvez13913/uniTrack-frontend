@@ -33,6 +33,12 @@ export interface IName {
   lastName: string;
   middleName: string;
 }
+export interface IFacultyName {
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  facultyId: string;
+}
 
 export interface IAdmin {
   id: string;
@@ -235,7 +241,7 @@ export interface IAcademicCoreFaculty {
 }
 
 export interface IOfferedCourseSchedule {
-  faculties: any;
+  faculties: IFacultyName;
   id: string;
   dayOfWeek: string;
   startTime: string;
@@ -278,4 +284,35 @@ export interface IMyCourse {
   totalMarks: number;
   status: string;
   course: ICourse;
+}
+
+export interface ICoreFaculty {
+  id: string;
+  facultyId: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  profileImage: string;
+  email: string;
+  contactNo: string;
+  gender: string;
+  bloodGroup: string;
+  designation: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: null;
+  academicDepartmentId: string;
+  academicFacultyId: string;
+  academicFaculty: IAcademicCoreFaculty;
+  academicDepartment: IAcademicCoreDepartment;
+}
+
+export interface IFacultyCourse {
+  course: ICourse;
+  sections?: SectionsEntity[] | null;
+}
+
+export interface SectionsEntity {
+  section: IOfferedCourseSection;
+  classSchedules?: IOfferedCourseSchedule[] | null;
 }
