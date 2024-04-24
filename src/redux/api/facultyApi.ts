@@ -83,7 +83,7 @@ export const facultyApi = baseApi.injectEndpoints({
     facultyCourseStudents: build.query({
       query: (arg: Record<string, any>) => {
         return {
-          url: `${FACULTY_URL}/my-course-students`,
+          url: `${FACULTY_URL}/myCourseStudents`,
           method: "GET",
           params: arg,
         };
