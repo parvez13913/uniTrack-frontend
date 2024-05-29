@@ -113,4 +113,5 @@ export const {
   useDeleteStudentMutation,
   useMyCoursesQuery,
   useMyCourseSchedulesQuery,
+  useMyAcademicInfosQuery
 } = studentApi;
