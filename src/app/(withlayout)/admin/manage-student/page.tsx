@@ -83,12 +83,12 @@ const ManageStudentPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-faculty/details/${data?.id}`}>
+            <Link href={`/admin/manage-student/details/${data?.id}`}>
               <Button onClick={() => console.log(data)} type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/admin/manage-faculty/edit/${data?.id}`}>
+            <Link href={`/admin/manage-student/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
