@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ReloadOutlined } from "@ant-design/icons";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import Loading from "@/app/loading";
 
 const FacultyCoursesStudentsPage = ({ searchParams }: Record<string, any>) => {
   const { courseId, offeredCourseSectionId } = searchParams;
@@ -42,7 +43,9 @@ const FacultyCoursesStudentsPage = ({ searchParams }: Record<string, any>) => {
   }
   const { data, isLoading } = useFacultyCourseStudentsQuery({ ...query });
 
-  console.log(data);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const myCourseStudents = data?.myCourseStudents;
   const meta = data?.meta;
@@ -79,7 +82,7 @@ const FacultyCoursesStudentsPage = ({ searchParams }: Record<string, any>) => {
         return (
           <div key="1" style={{ margin: "20px 0px" }}>
             <Link
-              href={`/faculty/student-result?studentId=${data.id}&courseId=${courseId}&offeredCourseSectionId=${offeredCourseSectionId}`}
+              href={`/faculty/student-result?studentId=${data?.id}&courseId=${courseId}&offeredCourseSectionId=${offeredCourseSectionId}`}
             >
               <Button type="primary">View Marks</Button>
             </Link>
