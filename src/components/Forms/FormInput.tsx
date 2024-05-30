@@ -12,7 +12,7 @@ interface IInput {
   placeholder?: string;
   validation?: object;
   label?: string;
-  required: boolean;
+  required?: boolean;
 }
 
 const FormInput = ({
