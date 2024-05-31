@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormInput from "@/components/Forms/FormInput";
@@ -7,32 +8,22 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import UploadImage from "@/components/ui/UploadImage";
 import { bloodGroupOptions, genderOptions } from "@/constants/global";
 import { useAdminQuery, useUpdateAdminMutation } from "@/redux/api/adminApi";
 import { useDepartmentsQuery } from "@/redux/api/departmentApi";
-import { updateAdminSchema } from "@/schemas/admin";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row, message } from "antd";
 
-type IdProps = {
-  params: any;
-};
+const AdminEditPage = ({ params }: any) => {
+  const id = params?.id;
+  const { data: adminData, isLoading: loading } = useAdminQuery(id);
+  const [updateAdmin] = useUpdateAdminMutation();
 
-const AdminEditPage = ({ params }: IdProps) => {
-  const { id } = params;
   // Management department option
   const { data, isLoading } = useDepartmentsQuery({ limit: 100, page: 1 });
-  const [updateAdmin] = useUpdateAdminMutation();
-  const onSubmit = async (values: any) => {
-    message.loading("Admin Updating...");
-    try {
-      await updateAdmin({ id, body: values });
-      message.success("Admin updated successfully");
-    } catch (error: any) {
-      await message.error(error.message);
-    }
-  };
+
+  if (isLoading || loading) {
+    return <Loading />;
+  }
 
   // @ts-ignore
   const departments: IDepartments[] = data?.departments;
@@ -45,7 +36,38 @@ const AdminEditPage = ({ params }: IdProps) => {
       };
     });
 
-  const defaultValues = {};
+  const onSubmit = async (values: any) => {
+    message.loading("Admin Updating...");
+    try {
+      const response = await updateAdmin({
+        id: params?.id,
+        body: values,
+      }).unwrap();
+      if (response?.id) {
+        message.success("Admin updated successfully");
+      }
+    } catch (error: any) {
+      await message.error(error.message);
+    }
+  };
+
+  const defaultValues = {
+    name: {
+      firstName: adminData?.name?.firstName || "",
+      lastName: adminData?.name?.lastName || "",
+      middleName: adminData?.name?.middleName || "",
+    },
+    dateOfBirth: adminData?.dateOfBirth || "",
+    email: adminData?.email || "",
+    designation: adminData?.designation || "",
+    contactNo: adminData?.contactNo || "",
+    emergencyContactNo: adminData?.emergencyContactNo || "",
+    permanentAddress: adminData?.permanentAddress || "",
+    presentAddress: adminData?.presentAddress || "",
+    bloodGroup: adminData?.bloodGroup || "",
+    gender: adminData?.gender || "",
+    managementDepartment: adminData?.managementDepartment?.id || "",
+  };
 
   return (
     <div>
@@ -62,7 +84,8 @@ const AdminEditPage = ({ params }: IdProps) => {
         ]}
       />
       <ActionBar title="Update Admin" />
-      <Form submitHandler={onSubmit} resolver={yupResolver(updateAdminSchema)}>
+
+      <Form submitHandler={onSubmit} defaultValues={defaultValues}>
         <div
           style={{
             border: "1px solid #d9d9d9",
@@ -89,7 +112,7 @@ const AdminEditPage = ({ params }: IdProps) => {
             >
               <FormInput
                 type="text"
-                name="admin.name.firstName"
+                name="name.firstName"
                 size="large"
                 label="First Name"
               />
@@ -103,7 +126,7 @@ const AdminEditPage = ({ params }: IdProps) => {
             >
               <FormInput
                 type="text"
-                name="admin.name.middleName"
+                name="name.middleName"
                 size="large"
                 label="Middle Name"
               />
@@ -117,7 +140,7 @@ const AdminEditPage = ({ params }: IdProps) => {
             >
               <FormInput
                 type="text"
-                name="admin.name.lastName"
+                name="name.lastName"
                 size="large"
                 label="Last Name"
               />
@@ -129,22 +152,8 @@ const AdminEditPage = ({ params }: IdProps) => {
                 marginBottom: "10px",
               }}
             >
-              <FormInput
-                type="password"
-                name="password"
-                size="large"
-                label="Password"
-              />
-            </Col>
-            <Col
-              className="gutter-row"
-              span={8}
-              style={{
-                marginBottom: "10px",
-              }}
-            >
               <FormSelectField
-                name="admin.gender"
+                name="gender"
                 size="large"
                 label="Gender"
                 options={genderOptions}
@@ -159,21 +168,12 @@ const AdminEditPage = ({ params }: IdProps) => {
               }}
             >
               <FormSelectField
-                name="admin.managementDepartment"
+                name="managementDepartment"
                 size="large"
                 label="Department"
                 options={managementDepartmentOptions}
                 placeholder="Select"
               />
-            </Col>
-            <Col
-              className="gutter-row"
-              span={8}
-              style={{
-                marginBottom: "10px",
-              }}
-            >
-              <UploadImage name="file" />
             </Col>
           </Row>
         </div>
@@ -203,12 +203,7 @@ const AdminEditPage = ({ params }: IdProps) => {
                 marginBottom: "10px",
               }}
             >
-              <FormInput
-                type="email"
-                name="admin.email"
-                size="large"
-                label="Email"
-              />
+              <FormInput type="email" name="email" size="large" label="Email" />
             </Col>
             <Col
               className="gutter-row"
@@ -219,7 +214,7 @@ const AdminEditPage = ({ params }: IdProps) => {
             >
               <FormInput
                 type="text"
-                name="admin.contactNo"
+                name="contactNo"
                 size="large"
                 label="Contact Number"
               />
@@ -233,7 +228,7 @@ const AdminEditPage = ({ params }: IdProps) => {
             >
               <FormInput
                 type="text"
-                name="admin.emergencyContactNo"
+                name="emergencyContactNo"
                 size="large"
                 label="Emergency Contact Number"
               />
@@ -246,7 +241,7 @@ const AdminEditPage = ({ params }: IdProps) => {
               }}
             >
               <FormDatePicker
-                name="admin.dateOfBirth"
+                name="dateOfBirth"
                 size="large"
                 label="Date Of Birth"
               />
@@ -259,7 +254,7 @@ const AdminEditPage = ({ params }: IdProps) => {
               }}
             >
               <FormSelectField
-                name="admin.bloodGroup"
+                name="bloodGroup"
                 size="large"
                 label="Blood Group"
                 options={bloodGroupOptions}
@@ -275,21 +270,21 @@ const AdminEditPage = ({ params }: IdProps) => {
             >
               <FormInput
                 type="text"
-                name="admin.designation"
+                name="designation"
                 size="large"
                 label="Designation"
               />
             </Col>
             <Col span={12} style={{ margin: "10px 0" }}>
               <FormTextArea
-                name="admin.presentAddress"
+                name="presentAddress"
                 label="Present Address"
                 rows={4}
               />
             </Col>
             <Col span={12} style={{ margin: "10px 0" }}>
               <FormTextArea
-                name="admin.permanentAddress"
+                name="permanentAddress"
                 label="Permanent Address"
                 rows={4}
               />

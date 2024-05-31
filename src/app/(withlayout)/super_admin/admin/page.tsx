@@ -14,6 +14,7 @@ import { useAdminsQuery } from "@/redux/api/adminApi";
 import { useDebounced } from "@/redux/hooks";
 import { useState } from "react";
 import { IDepartments } from "@/types";
+import Loading from "@/app/loading";
 
 const ManageAdminPage = () => {
   const query: Record<string, any> = {};
@@ -39,6 +40,10 @@ const ManageAdminPage = () => {
   }
 
   const { data, isLoading } = useAdminsQuery({ ...query });
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   const admins = data?.admins;
   const meta = data?.meta;
@@ -80,10 +85,11 @@ const ManageAdminPage = () => {
     },
     {
       title: "Action",
+      dataIndex: "id",
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/admin/edit/${data?.id}`}>
+            <Link href={`/super_admin/admin/edit/${data}`}>
               <Button
                 type="primary"
                 style={{
