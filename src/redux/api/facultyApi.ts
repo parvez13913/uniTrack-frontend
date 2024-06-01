@@ -36,7 +36,7 @@ export const facultyApi = baseApi.injectEndpoints({
     // Get single faculty
     faculty: build.query({
       query: (id: string | string[] | undefined) => ({
-        url: `${FACULTY_URL}/profile/${id}`,
+        url: `${FACULTY_URL}/${id}`,
         method: "GET",
       }),
       providesTags: [tagTypes.faculty],

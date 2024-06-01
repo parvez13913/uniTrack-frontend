@@ -1,21 +1,22 @@
 "use client";
 
-import ActionBar from "@/components/ui/ActionBar";
-import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import UMTable from "@/components/ui/UMTable";
-import { Button, Input } from "antd";
+import Loading from "@/app/loading";
+import { useFacultiesQuery } from "@/redux/api/facultyApi";
+import { useDebounced } from "@/redux/hooks";
+import { IDepartments } from "@/types";
+import { useState } from "react";
 import Link from "next/link";
 import dayjs from "dayjs";
+import { Button, Input } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
-import { useDebounced } from "@/redux/hooks";
-import { IDepartments } from "@/types";
-import { useFacultiesQuery } from "@/redux/api/facultyApi";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import ActionBar from "@/components/ui/ActionBar";
+import UMTable from "@/components/ui/UMTable";
 
 const ManageFaculty = () => {
   const query: Record<string, any> = {};
@@ -41,6 +42,11 @@ const ManageFaculty = () => {
   }
 
   const { data, isLoading } = useFacultiesQuery({ ...query });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const faculties = data?.faculties;
   const meta = data?.meta;
 
@@ -86,21 +92,20 @@ const ManageFaculty = () => {
     },
     {
       title: "Action",
-      dataIndex: "id",
+      dataIndex: "facultyId",
       render: function (data: any) {
         return (
           <>
-            <Link href={`/super_admin/manage-faculty/details/${data.id}`}>
-              <Button onClick={() => console.log(data)} type="primary">
+            <Link href={`/super_admin/manage-faculty/details/${data}`}>
+              <Button type="primary">
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/super_admin/manage-faculty/edit/${data.id}`}>
+            <Link href={`/super_admin/manage-faculty/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
                 type="primary"
               >
                 <EditOutlined />
