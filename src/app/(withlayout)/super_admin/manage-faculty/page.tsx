@@ -1,13 +1,16 @@
 "use client";
 
 import Loading from "@/app/loading";
-import { useFacultiesQuery } from "@/redux/api/facultyApi";
+import {
+  useDeleteFacultyMutation,
+  useFacultiesQuery,
+} from "@/redux/api/facultyApi";
 import { useDebounced } from "@/redux/hooks";
 import { IDepartments } from "@/types";
 import { useState } from "react";
 import Link from "next/link";
 import dayjs from "dayjs";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -17,15 +20,18 @@ import {
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
 import UMTable from "@/components/ui/UMTable";
+import UMModal from "@/components/ui/UMModal";
 
 const ManageFaculty = () => {
   const query: Record<string, any> = {};
-
+  const [deleteFaculty] = useDeleteFacultyMutation();
   const [size, setSize] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [facultyId, setFacultyId] = useState<string>("");
 
   query["size"] = size;
   query["page"] = page;
@@ -111,7 +117,15 @@ const ManageFaculty = () => {
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => console.log(data)} type="primary" danger>
+            <Button
+              type="primary"
+              onClick={() => {
+                setOpen(true);
+                setFacultyId(data);
+              }}
+              danger
+              style={{ marginLeft: "3px" }}
+            >
               <DeleteOutlined />
             </Button>
           </>
@@ -135,6 +149,19 @@ const ManageFaculty = () => {
     setSortOrder("");
     setSearchTerm("");
   };
+
+  const deleteFacultyHandler = async (id: string) => {
+    try {
+      const res = await deleteFaculty(id).unwrap();
+      if (res?.id) {
+        message.success("Faculty Successfully Deleted!");
+        setOpen(false);
+      }
+    } catch (error: any) {
+      message.error(error.message);
+    }
+  };
+
   return (
     <div>
       <UMBreadCrumb
@@ -184,6 +211,17 @@ const ManageFaculty = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+
+      <UMModal
+        title="Remove Faculty"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => deleteFacultyHandler(facultyId)}
+      >
+        <p className="my-5" style={{ color: "red" }}>
+          Do you want to remove this faculty?
+        </p>
+      </UMModal>
     </div>
   );
 };

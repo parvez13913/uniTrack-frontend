@@ -137,7 +137,6 @@ const ManageAdminPage = () => {
   };
 
   const deleteAdminHandler = async (id: string) => {
-    // console.log(id);
     try {
       const res = await deleteAdmin(id);
       if (res) {
