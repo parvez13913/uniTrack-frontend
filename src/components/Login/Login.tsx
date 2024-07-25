@@ -11,6 +11,7 @@ import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas/login";
+import Link from "next/link";
 
 type FormValues = {
   id: string;
@@ -74,6 +75,17 @@ const LoginPage = () => {
                 label="User Password"
                 required
               />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: "5px 0px",
+              }}
+            >
+              <div style={{ marginLeft: "auto" }}>
+                <Link href="/forgot-password">Forgot password?</Link>
+              </div>
             </div>
             <Button type="primary" htmlType="submit">
               Login
